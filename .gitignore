@@ -5,7 +5,10 @@
 log.*
 log*
 
+
+.csproj
 .log/*
+.sln/*
 
 .git/*
 .vs/*
