@@ -1,11 +1,16 @@
 #Need to ingore these files
 
-*.txt
+
+
+log.*
+log*
 
 .git/*
 .vs/*
 $Recycle.Bin/*
 solutions/win64/.vs/*
-
+solutions/win64/.vs/*
+solutions/win64/.vs/*
+solutions/win64/.vs/*
 
 
