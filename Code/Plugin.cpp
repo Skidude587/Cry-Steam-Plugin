@@ -1,4 +1,5 @@
 #include "StdAfx.h"
+//All steam h files are in plugin.h
 #include "Plugin.h"
 
 #include <CrySchematyc/Env/IEnvRegistry.h>
@@ -8,7 +9,6 @@
 // Included only once per DLL module.
 #include <CryCore/Platform/platform_impl.inl>
 
-//Include steam api as follows #include <steam/(h file)>
 
 CPlugin::~CPlugin()
 {
