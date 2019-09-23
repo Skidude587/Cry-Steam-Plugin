@@ -100,10 +100,11 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
 ```
 ## LobbyCVars.cpp Example
 ```#if USE_STEAM
-	REGISTER_CVAR2_DEV_ONLY("net_lobby_steam_online_port", &lobbySteamOnlinePort, STEAM_GAME_DEFAULT_PORT, VF_NULL, "Modify the online port for Steam");
-	REGISTER_CVAR2("net_useSteamAsOnlineLobby", &useSteamAsOnlineLobby, 1, VF_REQUIRE_APP_RESTART, "Defines if steam should be used or not");
-	REGISTER_CVAR2("net_steam_resetAchievements", &resetSteamAchievementsOnBoot, 0, VF_REQUIRE_APP_RESTART, "if set to 1, it will reset achievements for Steam on app start");
-#endif```
+	REGISTER_CVAR2_DEV_ONLY("net_lobby_steam_online_port", &lobbySteamOnlinePort, STEAM_GAME_DEFAULT_PORT, VF_NULL,);
+	REGISTER_CVAR2("net_useSteamAsOnlineLobby", &useSteamAsOnlineLobby, 1, VF_REQUIRE_APP_RESTART,);
+	REGISTER_CVAR2("net_steam_resetAchievements", &resetSteamAchievementsOnBoot, 0, VF_REQUIRE_APP_RESTART, );
+#endif 
+```
 
 ## GameBrowser.cpp Example
 ```
