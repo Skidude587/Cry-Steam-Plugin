@@ -24,3 +24,78 @@ Change the AppId in *GameBrowser.cpp* to your Steam AppId.
 
 *(IF IN RELEASE NOT LAUCNING VIA STEAM)*
 Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin folder.
+
+
+
+
+##.cryproject Example
+```
+{
+    "version": 4,
+    "type": "CRYENGINE Project",
+    "info": {
+        "name": "GameSDK",
+        "guid": "981c2e0b-5ce6-ce71-f0be-eab93bbd43f6"
+    },
+    "content": {
+        "assets": [
+            "GameSDK"
+        ],
+        "code": [
+            ""
+        ],
+        "libs": [
+            {
+                "name": "GameSDK",
+                "shared": {
+                    "any": "CryGameSDK",
+                    "win_x64": "",
+                    "win_x86": ""
+                }
+            }
+        ]
+    },
+    "require": {
+        "engine": "engine-5.6",
+        "plugins": [
+            {
+                "type": "EPluginType::Native",
+                "path": "CryDefaultEntities"
+            },
+            {
+                "type": "EPluginType::Native",
+                "path": "CrySensorSystem"
+            },
+            {
+                "type": "EPluginType::Native",
+                "path": "CryPerceptionSystem"
+            },
+            {
+                "type": "EPluginType::Native",
+                "path": "CryUQS_Core"
+            },
+            {
+                "type": "EPluginType::Native",
+                "path": "CryGamePlatform",
+                "platforms": [
+                    "Windows"
+                ]
+            },
+            {
+                "type": "EPluginType::Native",
+                "path": "CryLobby"
+            },
+            {
+                "type": "EPluginType::Native",
+               + "path": "CrySteamPlugin"
+            }
+        ]
+    },
+    "console_variables": {
+        "sys_ime": "1",
+        "sys_splashscreen": "Libs/UI/textures/startscreen.tif",
+        "sys_target_platforms": "pc,ps4,xboxone,linux"
+       + "sys_steamAppId": "1160200"
+    },
+    "console_commands": {}
+}
