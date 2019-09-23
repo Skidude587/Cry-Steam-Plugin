@@ -28,7 +28,7 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
 
 
 
-##.cryproject Example
+## .cryproject Example
 ```
 {
     "version": 4,
