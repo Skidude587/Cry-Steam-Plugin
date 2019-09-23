@@ -1,0 +1,11 @@
+#Need to ingore these files
+
+*.txt
+
+.git/*
+.vs/*
+
+solutions/win64/.vs/*
+
+
+
