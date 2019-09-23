@@ -22,6 +22,12 @@ add_sources("Code_uber.cpp"
 		"Plugin.h"
 		"StdAfx.h"
 )
+add_sources("lobby_uber.cpp"
+    PROJECTS Plugin
+    SOURCE_GROUP "lobby"
+		"lobby/SteamLobby.cpp"
+		"lobby/SteamLobby.h"
+)
 add_sources("public_uber.cpp"
     PROJECTS Plugin
     SOURCE_GROUP "public"
