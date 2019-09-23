@@ -89,11 +89,6 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
             }
         ]
     },
-    ```diff
-+ Please note: from March 20th 2018, the new CRYENGINE business model is in effect. 
-+ That means 5% royalties apply to projects developed and published on CRYENGINE 5.0 and beyond. 
-+ Check our new FAQ.md for all facts and exemptions.
-```
     "console_variables": {
         "sys_ime": "1",
         "sys_splashscreen": "Libs/UI/textures/startscreen.tif",
@@ -102,4 +97,19 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
     },
     "console_commands": {}
 }
+```
+## LobbyCVars.cpp Example
+```
+#if USE_STEAM
+	REGISTER_CVAR2_DEV_ONLY("net_lobby_steam_online_port", &lobbySteamOnlinePort, STEAM_GAME_DEFAULT_PORT, VF_NULL,);
+	REGISTER_CVAR2("net_useSteamAsOnlineLobby", &useSteamAsOnlineLobby, 1, VF_REQUIRE_APP_RESTART,);
+	REGISTER_CVAR2("net_steam_resetAchievements", &resetSteamAchievementsOnBoot, 0, VF_REQUIRE_APP_RESTART, );
+#endif 
+```
+
+## GameBrowser.cpp Example
+```
+#if USE_STEAM
+#define STEAM_APPID (1160200)
+#endif
 ```
