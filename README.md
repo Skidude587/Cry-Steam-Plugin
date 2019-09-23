@@ -89,11 +89,16 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
             }
         ]
     },
+    ```diff
++ Please note: from March 20th 2018, the new CRYENGINE business model is in effect. 
++ That means 5% royalties apply to projects developed and published on CRYENGINE 5.0 and beyond. 
++ Check our new FAQ.md for all facts and exemptions.
+```
     "console_variables": {
         "sys_ime": "1",
         "sys_splashscreen": "Libs/UI/textures/startscreen.tif",
         "sys_target_platforms": "pc,ps4,xboxone,linux"
-        ```diff +"sys_steamAppId": "1160200"
+        "sys_steamAppId": "1160200"
     },
     "console_commands": {}
 }
