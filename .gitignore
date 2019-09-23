@@ -5,12 +5,23 @@
 log.*
 log*
 
+.log/*
+
 .git/*
 .vs/*
 $Recycle.Bin/*
 solutions/win64/.vs/*
-solutions/win64/.vs/*
-solutions/win64/.vs/*
-solutions/win64/.vs/*
+solutions/win64/Debug/*
+solutions/win64/Editor.dir/*
+solutions/win64/GameLauncher.dir/*
+solutions/win64/GameServer.dir/*
+solutions/win64/Plugin.dir/*
+solutions/win64/Profile/*
+solutions/win64/x64/*
+
+
+
+
+
 
 
