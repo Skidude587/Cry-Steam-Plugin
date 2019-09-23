@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-			<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-				<PropertyGroup>
-					<LocalDebuggerCommand>G:/Program Files (x86)/Crytek/CRYENGINE Launcher/Crytek/CRYENGINE_5.6/bin/win_x64/Game_Server.exe</LocalDebuggerCommand>
-					<LocalDebuggerCommandArguments>-project "G:/Projects/Cry-Steam-Plugin/Code/..Plugin.cryproject"</LocalDebuggerCommandArguments>
-					<DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
-				</PropertyGroup>
-			</Project>
