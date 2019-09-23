@@ -10,7 +10,7 @@ log*
 .git/*
 .vs/*
 $Recycle.Bin/*
-solutions/*
+/solutions/
 
 
 
