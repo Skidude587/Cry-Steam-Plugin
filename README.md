@@ -1,4 +1,3 @@
-# NEED TO ADD PROPER README
 ## What it does
 This plugin is a replacement for the currently broken CryGamePlatformSteam. It calls up the Steam API and initiates it.
 It also sets up online lobbies hosted via your Steam AppId.
