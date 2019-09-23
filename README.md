@@ -84,17 +84,17 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
                 "path": "CryLobby"
             },
             {
-                "type": "EPluginType::Native",```
-              ```diff + "path": "CrySteamPlugin"```
-           ``` }
+                "type": "EPluginType::Native",
+                "path": "CrySteamPlugin"
+            }
         ]
     },
     "console_variables": {
         "sys_ime": "1",
         "sys_splashscreen": "Libs/UI/textures/startscreen.tif",
-        "sys_target_platforms": "pc,ps4,xboxone,linux"```
-        ```diff +"sys_steamAppId": "1160200"```
- ```   },
+        "sys_target_platforms": "pc,ps4,xboxone,linux"
+        ```diff +"sys_steamAppId": "1160200"
+    },
     "console_commands": {}
 }
 ```
