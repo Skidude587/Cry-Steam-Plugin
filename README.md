@@ -8,6 +8,13 @@ It also sets up online lobbies hosted via your Steam AppId.
 Copy code to the proper folders.
 
 Add CrySteamPlugin in your required plugins section in your .cryproject file.
+Eg:```
+"plugins": [
+               { 
+                "type": "EPluginType::Native",
+                "path": "CrySteamPlugin"
+                }
+            ]```
 
 Add in your Steam AppId to ```"sys_steamAppId"``` in your .cryproject file.
 
