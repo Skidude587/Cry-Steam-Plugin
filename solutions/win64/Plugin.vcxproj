@@ -112,7 +112,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;steam_api64</AdditionalDependencies>
+      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -168,7 +168,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;steam_api64</AdditionalDependencies>
+      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -223,7 +223,7 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;steam_api64</AdditionalDependencies>
+      <AdditionalDependencies>Ntdll.lib;User32.lib;Advapi32.lib;Ntdll.lib;Ws2_32.lib;User32.lib;Advapi32.lib;Ws2_32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -294,6 +294,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\Plugin.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\StdAfx.h" />
+    <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\lobby\SteamLobby.cpp" />
+    <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\lobby\SteamLobby.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\isteamapplist.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\isteamapps.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\isteamappticket.h" />
@@ -339,6 +341,17 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\steam_api_internal.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\steam_gameserver.h" />
     <ClCompile Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\Code_uber.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">StdAfx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Profile|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Use</PrecompiledHeader>
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StdAfx.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+    </ClCompile>
+    <ClCompile Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\lobby_uber.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">StdAfx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>

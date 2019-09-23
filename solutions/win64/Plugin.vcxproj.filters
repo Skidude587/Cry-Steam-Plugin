@@ -5,6 +5,9 @@
     <ClCompile Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\Code_uber.cpp">
       <Filter>UBER FILES</Filter>
     </ClCompile>
+    <ClCompile Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\lobby_uber.cpp">
+      <Filter>UBER FILES</Filter>
+    </ClCompile>
     <ClCompile Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\steam_uber.cpp">
       <Filter>UBER FILES</Filter>
     </ClCompile>
@@ -13,6 +16,12 @@
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\Plugin.cpp" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\Plugin.h" />
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\StdAfx.h" />
+    <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\lobby\SteamLobby.cpp">
+      <Filter>lobby</Filter>
+    </ClInclude>
+    <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\lobby\SteamLobby.h">
+      <Filter>lobby</Filter>
+    </ClInclude>
     <ClInclude Include="G:\Projects\Cry-Steam-Plugin\Code\public\steam\isteamapplist.h">
       <Filter>public\steam</Filter>
     </ClInclude>
@@ -160,6 +169,9 @@
     </Filter>
     <Filter Include="UBER FILES">
       <UniqueIdentifier>{7EAD7A48-FEF8-3094-966C-FEB1AE589F39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lobby">
+      <UniqueIdentifier>{2D600083-77EB-3F7C-81C1-668915210B5A}</UniqueIdentifier>
     </Filter>
     <Filter Include="public">
       <UniqueIdentifier>{8F8F88C0-05E3-3622-A2A0-D187940946A9}</UniqueIdentifier>
