@@ -5,7 +5,7 @@ This plugin is a replacement for the currently broken CryGamePlatformSteam. It c
 
 It also sets up online lobbies hosted via your Steam AppId.
 ## How To
-Copy code to the proper project folders.
+Copy code to the proper folders.
 
 Add CrySteamPlugin in your required plugins section in your .cryproject file.
 
