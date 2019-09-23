@@ -1,0 +1,17 @@
+Determining if the function stpcpy exists failed with the following output:
+Change Dir: G:/Projects/Cry-Steam-Plugin/solutions/win64/CMakeFiles/CMakeTmp
+
+Run Build Command(s):C:/Program Files (x86)/Microsoft Visual Studio/2017/Enterprise/MSBuild/15.0/Bin/MSBuild.exe cmTC_4f703.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=15.0 /v:m 
+Microsoft (R) Build Engine version 15.6.82.30579 for .NET Framework
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+  Microsoft (R) C/C++ Optimizing Compiler Version 19.13.26128 for x64
+  Copyright (C) Microsoft Corporation.  All rights reserved.
+  
+  cl /c /Zi /W3 /WX- /diagnostics:classic /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=stpcpy /D DEBUG /D _DEBUG /D _WIN32 /D _WIN64 /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_4f703.dir\Debug\\" /Fd"cmTC_4f703.dir\Debug\vc141.pdb" /Gd /TC /errorReport:queue  /Zo "G:\Program Files (x86)\Crytek\CRYENGINE Launcher\Crytek\CRYENGINE_5.6\Tools\CMake\Win32\share\cmake-3.14\Modules\CheckFunctionExists.c"
+  CheckFunctionExists.c
+  
+CheckFunctionExists.obj : error LNK2019: unresolved external symbol stpcpy referenced in function main [G:\Projects\Cry-Steam-Plugin\solutions\win64\CMakeFiles\CMakeTmp\cmTC_4f703.vcxproj]
+G:\Projects\Cry-Steam-Plugin\solutions\win64\CMakeFiles\CMakeTmp\Debug\cmTC_4f703.exe : fatal error LNK1120: 1 unresolved externals [G:\Projects\Cry-Steam-Plugin\solutions\win64\CMakeFiles\CMakeTmp\cmTC_4f703.vcxproj]
+
+

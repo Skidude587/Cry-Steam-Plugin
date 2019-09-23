@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="G:\Projects\Cry-Steam-Plugin\solutions\win64\CMakeFiles\e6ac6a5ce6328bec6d7edf5cbc794ef1\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{22B0B981-3E18-3046-899A-2676B3BF8349}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
