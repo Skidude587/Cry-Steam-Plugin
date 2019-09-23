@@ -9,8 +9,8 @@ Copy code to the proper folders.
 
 Add CrySteamPlugin in your required plugins section in your .cryproject file.
 
-Add in your Steam AppId to "sys_steamAppId" in your .cryproject file.
+Add in your Steam AppId to ```"sys_steamAppId"``` in your .cryproject file.
 
-In LobbyCVars.cpp change "net_usesteamasonlinelobby" to 1.
+In LobbyCVars.cpp change ```"net_usesteamasonlinelobby"``` to 1.
 
 (IF USING GAME SDK) Change the AppId in gamebrowser.cpp to your Steam AppId.
