@@ -19,6 +19,8 @@ Add in your Steam AppId to ```"sys_steamAppId"``` in your .cryproject file.
 
 In *LobbyCVars.cpp* change ```"net_useSteamAsOnlineLobby"``` to 1.
 
-(IF USING GAME SDK) Change the AppId in *GameBrowser.cpp* to your Steam AppId.
++(IF USING GAME SDK) 
+Change the AppId in *GameBrowser.cpp* to your Steam AppId.
 
-(IF IN RELEASE NOT LAUCNING VIA STEAM) Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin folder.
++(IF IN RELEASE NOT LAUCNING VIA STEAM) 
+Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin folder.
