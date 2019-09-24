@@ -157,4 +157,18 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 	}
 }
 
+bool CPlugin::OnClientConnectionReceived(int channelId, bool bIsReset)
+{
+	return false;
+}
+
+bool CPlugin::OnClientReadyForGameplay(int channelId, bool bIsReset)
+{
+	return false;
+}
+
+void CPlugin::OnClientDisconnected(int channelId, EDisconnectionCause cause, const char * description, bool bKeepClient)
+{
+}
+
 CRYREGISTER_SINGLETON_CLASS(CPlugin)

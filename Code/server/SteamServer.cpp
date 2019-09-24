@@ -1,7 +1,7 @@
 //
 // -------------------------------------------------------------------------
 //  File name:   SteamServer.cpp
-//  Created:     23/09/2019 by Joey Gonzalez, 
+//  Created:     23/09/2019 by Joey Gonzalez, Jonathan Green
 //  Description: Handles P2P sessions for sending/recieving packets
 // -------------------------------------------------------------------------
 //
@@ -39,6 +39,14 @@ bool cSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize,
 	}
 
 	return SteamNetworking()->ReadP2PPacket(pDest, destSize, pMsgSize, pSteamIDRemote);
+}
+
+cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
+{
+}
+
+cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionConnectFail, P2PSessionConnectFail_t)
+{
 }
 
 // Close P2P session with associated steamID.
