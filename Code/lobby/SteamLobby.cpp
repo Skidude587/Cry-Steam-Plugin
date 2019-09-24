@@ -117,36 +117,38 @@ ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures featur
 #endif // USE_CRY_MATCHMAKING
 
 
-	//Steam Service Int
-
-
-/*steam appid int here*/
-/*steam accound id here*/
-/*CSteamID int here*/
+//Steam Lobby System Int()
+CSteamLobbySystem::CSteamLobbySystem()
+	{
+	}
 //
 
-//Steam Stats upload
-/*steam stats upload here*/
+//Steam Lobby Id
+void CSteamLobbySystem::SetLobbySteamID(const CSteamID & steamIDLobby)
+	{
+	}
 //
 
-	CSteamLobbySystem::CSteamLobbySystem()
+//Steam callback person state change
+CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
 	{
 	}
+//
 
-	void CSteamLobbySystem::SetLobbySteamID(const CSteamID & steamIDLobby)
+//Steam lobby system data update
+CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
 	{
 	}
+//
 
-	CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
+//Steam lobby system chat update
+CSteamLobbySystem::CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
 	{
 	}
+//
 
-	CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
+//Steam callback person state change
+STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
 	{
 	}
-
-	CSteamLobbySystem::CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
-	{
-	}STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
-	{
-	}
+//
