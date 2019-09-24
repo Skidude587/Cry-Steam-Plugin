@@ -54,6 +54,19 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		}
 	}
 	break;
+
+	case ESYSTEM_EVENT_GAME_POST_INIT:
+	{
+
+		// Listen for client connection events, in order to create the local player
+		gEnv->pGameFramework->AddNetworkedClientListener(*this);
+
+	}
+	break;
+
+	case ESYSTEM_EVENT_LEVEL_LOAD_END:
+		// Clear the players from net, if didn't already. might need to remove this during testing... 
+		m_players.clear();
 	}
 }
 
