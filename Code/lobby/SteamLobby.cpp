@@ -116,8 +116,10 @@ ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures featur
 	}
 #endif // USE_CRY_MATCHMAKING
 
-//Steam Service Int
-/*steam service int here*/
+
+	//Steam Service Int
+
+
 /*steam appid int here*/
 /*steam accound id here*/
 /*CSteamID int here*/
@@ -126,3 +128,25 @@ ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures featur
 //Steam Stats upload
 /*steam stats upload here*/
 //
+
+	CSteamLobbySystem::CSteamLobbySystem()
+	{
+	}
+
+	void CSteamLobbySystem::SetLobbySteamID(const CSteamID & steamIDLobby)
+	{
+	}
+
+	CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
+	{
+	}
+
+	CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
+	{
+	}
+
+	CSteamLobbySystem::CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
+	{
+	}STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
+	{
+	}

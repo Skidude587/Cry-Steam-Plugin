@@ -1,7 +1,7 @@
 //
 // -------------------------------------------------------------------------
 //  File name:   SteamLobby.h
-//  Created:     23/09/2019 by Von Bismarck, 
+//  Created:     23/09/2019 by Von Bismarck, Jonathan Green
 //  Description: This Class file is for calling Steam API for our lobby system
 // -------------------------------------------------------------------------
 //
@@ -12,6 +12,7 @@
 
 #pragma once 
 #include "StdAfx.h"
+#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
 
 
 struct LobbyMenuItem_t
@@ -46,7 +47,6 @@ class CSteamLobbySystem
 public:
 	CSteamLobbySystem();
 	virtual ~CSteamLobbySystem() {}
-
 
 	/*
 		Lobby

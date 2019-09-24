@@ -1,10 +1,12 @@
-/*
+//
+// -------------------------------------------------------------------------
+//  File name:   SteamLobby.h
+//  Created:     23/09/2019 by Von Bismarck, Jonathan Green
+//  Description: This is created and use to gather info on friends
+// -------------------------------------------------------------------------
+//
+////////////////////////////////////////////////////////////////////////////
 
-	Authors: Von Bismarck 
-
-	Purpose: this is created and use to gather info on friends
-
-*/
 
 
 

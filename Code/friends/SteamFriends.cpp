@@ -9,6 +9,10 @@
 
 
 
+SteamFriendsSystem::SteamFriendsSystem()
+{
+}
+
 void SteamFriendsSystem::CreateFriendsList()
 {
 	AddFriends(k_EFriendFlagFriendshipRequested, "Incoming Friend Requests");
