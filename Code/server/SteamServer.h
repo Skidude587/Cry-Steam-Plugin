@@ -1,4 +1,6 @@
 //
+//	File: SteamServer.h
+//	
 //
 //
 
@@ -10,6 +12,7 @@
 class cSteamServer
 {
 public:
+	void CloseP2PSession(CSteamID steamIDRemote);
 
 private:
 	STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t);
