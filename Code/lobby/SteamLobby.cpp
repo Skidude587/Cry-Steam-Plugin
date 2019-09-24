@@ -20,6 +20,5 @@ S_API bool S_CALLTYPE SteamAPI_Init();
 	int useSteamAsOnlineLobby;
 	int resetSteamAchievementsOnBoot;
 	int lobbySteamOnlinePort;
-
 #endif
 //
