@@ -24,7 +24,6 @@
 #include "public/steam/isteamnetworkingsockets.h"
 #include "public/steam/isteamnetworkingutils.h"
 #include "public/steam/isteamparentalsettings.h"
-#include "public/steam/isteamps3overlayrenderer.h"
 #include "public/steam/isteamremoteplay.h"
 #include "public/steam/isteamremotestorage.h"
 #include "public/steam/isteamscreenshots.h"
