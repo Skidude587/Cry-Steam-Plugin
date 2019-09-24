@@ -27,6 +27,9 @@
 // - VAC cheat protection
 // - Game server matchmaking
 // as these function depend on using Steam authentication
+
+
+
 #define USE_GS_AUTH_API 
 // UDP port for the game server to do authentication on (ie, talk to Steam on)
 #define GAME_AUTH_PORT 8766
@@ -45,7 +48,7 @@
 // How many times a second do we send our updated client state to the server
 #define CLIENT_UPDATE_SEND_RATE 30
 
-
+#define USING_STEAM 0
 
 
 class CPlugin 
