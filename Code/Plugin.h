@@ -8,6 +8,45 @@
 #include <CryNetwork/INetwork.h>
 #include <CryExtension/ClassWeaver.h>
 
+// Some public Macros 
+
+// The Steamworks API's are modular, you can use some subsystems without using others
+// When USE_GS_AUTH_API is defined you get the following Steam features:
+// - Strong user authentication and authorization
+// - Game server matchmaking
+// - VAC cheat protection
+// - Access to achievement/community API's
+// - P2P networking capability
+
+// Remove this define to disable using the native Steam authentication and matchmaking system
+// You can use this as a sample of how to integrate your game without replacing an existing matchmaking system
+// When you un-define USE_GS_AUTH_API you get:
+// - Access to achievement/community API's
+// - P2P networking capability
+// You CANNOT use:
+// - VAC cheat protection
+// - Game server matchmaking
+// as these function depend on using Steam authentication
+#define USE_GS_AUTH_API 
+// UDP port for the game server to do authentication on (ie, talk to Steam on)
+#define GAME_AUTH_PORT 8766
+// UDP port for the game server to listen on
+#define GAME_SERVER_PORT 27015
+// UDP port for the master server updater to listen on
+#define GAME_MASTER_SERVER_UPDATER_PORT 27016
+// How long to wait for a client to send an update before we drop its connection server side
+#define SERVER_TIMEOUT_MILLISECONDS 5000
+// Maximum packet size in bytes
+#define MAX_SPACEWAR_PACKET_SIZE 1024*512
+// Time to timeout a connection attempt in
+#define MILLISECONDS_CONNECTION_TIMEOUT 30000
+// How many times a second does the server send world updates to clients
+#define SERVER_UPDATE_SEND_RATE 60
+// How many times a second do we send our updated client state to the server
+#define CLIENT_UPDATE_SEND_RATE 30
+
+
+
 
 class CPlugin 
 	: public Cry::IEnginePlugin
@@ -18,6 +57,7 @@ class CPlugin
 public:
 	CRYINTERFACE_SIMPLE(Cry::IEnginePlugin)
 	CRYGENERATE_SINGLETONCLASS_GUID(CPlugin, "MyPlugin", "2711a23d-3848-4cdd-a95b-e9d88ffa23b0"_cry_guid)
+
 
 	virtual ~CPlugin();
 	
