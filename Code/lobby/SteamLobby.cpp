@@ -10,9 +10,12 @@
 #include "SteamLobby.h"
 #include <CrySystem/ConsoleRegistration.h>
 #include <../../CryPlugins/CryGamePlatform/Interface/IPlatformService.h>
+#include <../../CryPlugins/CryGamePlatform/Interface/IGamePlatform.h>
+#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
+#include <../../CryPlugins/CryLobby/Interface/CryLobby/ICryLobbyPrivate.h>
 #include "friends/SteamFriends.h"
 
-#if RELEASE
+#if (RELEASE)
 static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 {
 	ISteamFriends* pSteamFriends = SteamFriends();
@@ -61,6 +64,57 @@ static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 }
 
 #endif
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*SteamLobbyService*/::/*SteamLobbyService*/(CCryLobby* pLobby, ECryLobbyService service)
+	: /*SteamLobbyService*/(pLobby, service)
+
+/*SteamLobbyService*/::/*~SteamLobbyService*/(void)
+{
+#if (RELEASE)
+	gEnv->pConsole->UnregisterVariable("steam_invite_to_game", true);
+	gEnv->pConsole->UnregisterVariable("steam_show_friends", true);
+	gEnv->pConsole->UnregisterVariable("steam_show_overlay", true);
+#endif // !defined(RELEASE)
+}
+
+ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+{
+	ECryLobbyError ret = eCLE_Success;
+
+	if (SteamUser() == NULL)
+	{
+		if ((pPlugin == nullptr) ||
+			(pPlugin->GetMainService() == nullptr)
+		{
+			ret = eCLE_NotInitialised;
+		}
+
+		if (ret != eCLE_Success)
+		{
+			NetLog("[STEAM]: SteamAPI_Init() failed");
+			return ret;
+		}
+		NetLog("[STEAM]: SteamAPI_Init() succeeded");
+	}
+
+	ret = CCryLobbyService::Initialise(features, pCB);
+
+#if USE_CRY_MATCHMAKING
+	if ((ret == eCLE_Success) && (m_pMatchmaking == NULL) && (features & eCLSO_Matchmaking))
+	{
+		m_pMatchmaking = new CCrySteamMatchMaking(m_pLobby, this, m_service);
+
+		if (m_pMatchmaking != NULL)
+		{
+			ret = m_pMatchmaking->Initialise();
+		}
+		else
+		{
+			return eCLE_OutOfMemory;
+		}
+	}
+#endif // USE_CRY_MATCHMAKING
+
 //Steam Service Int
 /*steam service int here*/
 /*steam appid int here*/

@@ -85,7 +85,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 #endif // USING_STEAM
 
 
-#if(RELEASE)
+#if (RELEASE)
 		//Steam Friend service
 		static void SteamShowFriends_DevelopmentOnly(IConsoleCmdArgs* pArgs);
 		{
