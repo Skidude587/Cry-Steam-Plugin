@@ -14,6 +14,7 @@
 #include <../../CryPlugins/CryLobby/Module/CryLobby.h>
 #include <../../CryPlugins/CryLobby/Interface/CryLobby/ICryLobbyPrivate.h>
 #include "friends/SteamFriends.h"
+#include "lobby/NetLog.h"
 
 #if (RELEASE)
 static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
@@ -48,18 +49,18 @@ static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 				}
 				else
 				{
-					/*log*/("[STEAM]: Invalid friend index [%d] - ignoring... (see steam_show_friends)", friendIndex);
+					NetLog("[STEAM]: Invalid friend index [%d] - ignoring... (see steam_show_friends)", friendIndex);
 				}
 			}
 		}
 		else
 		{
-			/*log*/("[STEAM]: No hosted nub session...");
+			NetLog("[STEAM]: No hosted nub session...");
 		}
 	}
 	else
 	{
-		/*log*/("[STEAM]: Person to invite not defined.");
+		NetLog("[STEAM]: Person to invite not defined.");
 	}
 }
 
