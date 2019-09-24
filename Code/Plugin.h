@@ -48,8 +48,6 @@
 // How many times a second do we send our updated client state to the server
 #define CLIENT_UPDATE_SEND_RATE 30
 
-#define USING_STEAM() (true)
-
 
 class CPlugin 
 	: public Cry::IEnginePlugin
