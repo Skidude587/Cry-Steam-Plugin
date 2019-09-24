@@ -1,3 +1,12 @@
+//
+// -------------------------------------------------------------------------
+//  File name:   Plugin.cpp
+//  Created:     23/09/2019 by Crytek, Jonathan Green, Von Bismarck
+//  Description: Main File for the Plugin
+// -------------------------------------------------------------------------
+//
+////////////////////////////////////////////////////////////////////////////
+
 #include "StdAfx.h"
 //All steam h files are in plugin.h
 #include "Plugin.h"
