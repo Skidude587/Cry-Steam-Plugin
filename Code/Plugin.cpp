@@ -8,7 +8,7 @@
 ////////////////////////////////////////////////////////////////////////////
 
 #include "StdAfx.h"
-//All steam h files are in plugin.h
+
 #include "Plugin.h"
 
 #include <CrySchematyc/Env/IEnvRegistry.h>
@@ -92,7 +92,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 			ISteamFriends* pSteamFriends = SteamFriends();
 			if (!pSteamFriends)
 			{
-				/*Warning*/(VALIDATOR_MODULE_SYSTEM, VALIDATOR_WARNING, "Steam friends service not available");
+				/*Warning*/(VALIDATOR_MODULE_SYSTEM, VALIDATOR_WARNING, "Steam friends service not available or working, check log");
 				return;
 			}
 			uint32 friendCount = pSteamFriends->GetFriendCount(k_EFriendFlagImmediate);
