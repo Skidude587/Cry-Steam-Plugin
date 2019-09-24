@@ -1,7 +1,7 @@
 #pragma once 
+#define USING_STEAM 1
 //steam api
 #include "public/steam/steam_api.h"
-
 //normal steam stuff
 #include "public/steam/isteamapplist.h"
 #include "public/steam/isteamapps.h"

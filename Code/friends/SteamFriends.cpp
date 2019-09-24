@@ -9,6 +9,8 @@
 	These Functions are open API, meaning you call them with in your game.
 */
 
+
+
 void SteamFriendsSystem::CreateFriendsList()
 {
 	AddFriends(k_EFriendFlagFriendshipRequested, "Incoming Friend Requests");
@@ -52,13 +54,6 @@ void SteamFriendsSystem::CreateFriendsList()
 }
 
 
-void SteamFriendsSystem::CreateLobby()
-{
-}
-
-void SteamFriendsSystem::RefreshLobby()
-{
-}
 
 void SteamFriendsSystem::AddFriends(int iFriendFlag, const char * pszName, std::vector<CSteamID>* pVecIgnoredSteamIds)
 {
