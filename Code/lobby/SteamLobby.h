@@ -1,17 +1,12 @@
-/*
+//
+// -------------------------------------------------------------------------
+//  File name:   SteamLobby.h
+//  Created:     23/09/2019 by Von Bismarck, 
+//  Description: This Class file is for calling Steam API for our lobby system
+// -------------------------------------------------------------------------
+//
+////////////////////////////////////////////////////////////////////////////
 
-
-	This Class file is for calling Steam API for our lobby system
-
-
-
-	Authors: Von Bismarck , 
-
-
-
-
-
-*/
 
 
 
