@@ -9,7 +9,7 @@
 #include "StdAfx.h"
 #include "SteamLobby.h"
 
-//Calls up Steam API lin
+//Calls up Steam API lib
 #if USING_STEAM
 #pragma comment(lib, "steam_api64.lib")
 
