@@ -10,16 +10,13 @@
 #include "SteamLobby.h"
 
 //Calls up Steam API lin
-#ifndef STEAMLOBBY_H
-#define STEAMLOBBY_H
+#if USING_STEAM
 #pragma comment(lib, "steam_api64.lib")
 
 #include "CryLobby.h"
 
 //int LobbyCVars for steam lobbies 
-#if USING_STEAM
 	int useSteamAsOnlineLobby;
 	int resetSteamAchievementsOnBoot;
 	int lobbySteamOnlinePort;
-#endif
 #endif
