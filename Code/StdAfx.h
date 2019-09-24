@@ -10,3 +10,9 @@
 #include <CrySystem/ISystem.h>
 #include <Cry3DEngine/I3DEngine.h>
 #include <CryNetwork/ISerialize.h>
+
+#include "public/steam/steam_api.h"
+#include "public/steam/isteamuserstats.h"
+#include "public/steam/isteamremotestorage.h"
+#include "public/steam/isteammatchmaking.h"
+#include "public/steam/steam_gameserver.h"

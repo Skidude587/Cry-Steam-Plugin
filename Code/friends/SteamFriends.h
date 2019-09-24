@@ -12,6 +12,7 @@
 
 #include "StdAfx.h"
 #include "public/steam/steam_api.h"
+#include "public/steam/isteamfriends.h"
 
 // a friends list item
 struct FriendsListMenuItem_t
@@ -20,7 +21,13 @@ struct FriendsListMenuItem_t
 };
 
 
-class SteamFriendsSystem
+class CFriendsList 
+{
+
+};
+
+
+class SteamFriendsSystem : public CFriendsList
 {
 	static const FriendsListMenuItem_t k_menuItemEmpty;
 
@@ -32,12 +39,10 @@ public:
 	Friends
 	*/
 
+
+
 	/* This is for debugging we can call this to output a list of current user's friends */
 	void CreateFriendsList();
-
-	void CreateLobby();
-
-	void RefreshLobby();
 
 
 protected:
@@ -47,5 +52,10 @@ protected:
 
 	/* this function could be use to added user's friends to a list/ in game menu. Need to think of better way to create this. */
 	void AddFriendsToMenu(CSteamID steamIDFriend);
+
+
+private:
+
+	CFriendsList * m_pFriendsList;
 };
 
