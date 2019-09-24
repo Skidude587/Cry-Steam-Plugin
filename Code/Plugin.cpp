@@ -61,7 +61,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		// Listen for client connection events, in order to create the local player
 		gEnv->pGameFramework->AddNetworkedClientListener(*this);
 
-#ifdef USING_STEAM
+#if USING_STEAM
 		if (!SteamInput()->Init())
 		{
 			CRY_ASSERT("Steam needs to be running");
