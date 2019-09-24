@@ -96,7 +96,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 				return;
 			}
 			uint32 friendCount = pSteamFriends->GetFriendCount(k_EFriendFlagImmediate);
-			/*Log*/("[STEAM]: Friends list (%d friends):", friendCount);
+			/*log*/("[STEAM]: Friends list (%d friends):", friendCount);
 			for (uint32 index = 0; index < friendCount; ++index)
 			{
 				CSteamID friendID = pSteamFriends->GetFriendByIndex(index, k_EFriendFlagImmediate);
