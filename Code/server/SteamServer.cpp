@@ -15,10 +15,10 @@
 // Check if theres a packet ready to be read.
 bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 {
-	if (!SteamNetworking)
+	if (!SteamNetworking()->IsP2PPacketAvailable(pMsgSize))
 	{
 		// Add error log ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 		return false;
 	}
 
@@ -31,10 +31,10 @@ bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 // Is sucessfully read.
 bool cSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize, CSteamID* pSteamIDRemote)
 {
-	if (!SteamNetworking)
+	if (!SteamNetworking()->ReadP2PPacket(pDest, destSize, pMsgSize, pSteamIDRemote))
 	{
 		// Add error log ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 		return false;
 	}
 
@@ -44,10 +44,10 @@ bool cSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize,
 // Close P2P session with associated steamID.
 void cSteamServer::CloseP2PSession(CSteamID steamIDRemote)
 {
-	if (!SteamNetworking)
+	if (!SteamNetworking()->CloseP2PSessionWithUser(steamIDRemote))
 	{
 		// Add error log ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 		return;
 	}
 
@@ -62,10 +62,10 @@ void cSteamServer::CloseP2PSession(CSteamID steamIDRemote)
 // Callback for recieving P2P requests.
 void cSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
 {
-	if (!SteamNetworking)
+	if (!SteamNetworking()->AcceptP2PSessionWithUser(pCallback->m_steamIDRemote))
 	{
 		// Add error log ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 		return;
 	}
 
@@ -74,7 +74,7 @@ void cSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
 	{
 		// SteamID is invalid.
 		// Add error log ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 	}
 }
 
@@ -103,6 +103,6 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 		}
 
 		// Log error ...
-
+		CRY_ASSERT("SteamNetworking not working!");
 	}
 }

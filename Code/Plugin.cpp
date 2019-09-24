@@ -69,9 +69,9 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		}
 #pragma comment(lib, "steam_api64.lib")
 		//int LobbyCVars for steam lobbies 
-		int useSteamAsOnlineLobby;
-		int resetSteamAchievementsOnBoot;
-		int lobbySteamOnlinePort;
+		//int useSteamAsOnlineLobby;
+		//int resetSteamAchievementsOnBoot;
+		//int lobbySteamOnlinePort;
 #endif // USING_STEAM
 
 
