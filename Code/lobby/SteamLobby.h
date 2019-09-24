@@ -45,7 +45,13 @@ class CSteamLobbySystem
 
 
 public:
+	ECryLobbyError Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB);
+	~CSteamLobbySystem(void);
 	CSteamLobbySystem();
+	inline ECryLobbyError CSteamLobbySystem::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+	{
+		return ECryLobbyError();
+	}
 	virtual ~CSteamLobbySystem() {}
 
 	/*

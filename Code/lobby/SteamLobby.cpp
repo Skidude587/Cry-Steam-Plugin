@@ -66,20 +66,20 @@ static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 
 #endif
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*SteamLobbyService*/::/*SteamLobbyService*/(CCryLobby* pLobby, ECryLobbyService service)
-	: /*SteamLobbyService*/(pLobby, service)
+CSteamLobbySystem::CSteamLobbySystem(CCryLobby* pLobby, ECryLobbyService service)
+	:CSteamLobbySystem(pLobby, service)
 
-/*SteamLobbyService*/::/*~SteamLobbyService*/(void)
-{
 #if (RELEASE)
 	gEnv->pConsole->UnregisterVariable("steam_invite_to_game", true);
 	gEnv->pConsole->UnregisterVariable("steam_show_friends", true);
 	gEnv->pConsole->UnregisterVariable("steam_show_overlay", true);
 #endif // !defined(RELEASE)
-}
 
-ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+ECryLobbyError CSteamLobbySystem::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
 {
+	CSteamLobbySystem::~CSteamLobbySystem*(void)
+	{
+	}
 	ECryLobbyError ret = eCLE_Success;
 
 	if (SteamUser() == NULL)
@@ -98,7 +98,6 @@ ECryLobbyError /*SteamLobbyService*/::Initialise(ECryLobbyServiceFeatures featur
 		NetLog("[STEAM]: SteamAPI_Init() succeeded");
 	}
 
-	ret = CCryLobbyService::Initialise(features, pCB);
 
 #if USE_CRY_MATCHMAKING
 	if ((ret == eCLE_Success) && (m_pMatchmaking == NULL) && (features & eCLSO_Matchmaking))
