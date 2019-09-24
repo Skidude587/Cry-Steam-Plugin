@@ -8,10 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////
 #include "StdAfx.h"
 #include "SteamLobby.h"
-#include "steam_int_h.h"
-#include "friends/SteamFriends.h"
+
 //Calls up Steam API lib
-#if USING_STEAM
+#if USING_STEAM == 1
 #pragma comment(lib, "steam_api64.lib")
 S_API bool S_CALLTYPE SteamAPI_Init();
 //

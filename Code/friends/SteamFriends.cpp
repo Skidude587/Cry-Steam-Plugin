@@ -1,8 +1,6 @@
 #include "StdAfx.h"
 
 #include "SteamFriends.h"
-#include "public/steam/steam_api.h"
-#include "public/steam/isteamfriends.h"
 
 
 /*

@@ -9,8 +9,6 @@
 
 #include "StdAfx.h"
 #include "SteamServer.h"
-#include "lobby/steam_int_h.h"
-#include "public/steam/steam_api.h"
 
 // TODO: add log calls
 
