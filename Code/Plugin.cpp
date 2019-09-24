@@ -1,7 +1,7 @@
 //
 // -------------------------------------------------------------------------
 //  File name:   Plugin.cpp
-//  Created:     23/09/2019 by Crytek, Jonathan Green, Von Bismarck
+//  Created:     23/09/2019 by Jonathan Green, Von Bismarck
 //  Description: Main File for the Plugin
 // -------------------------------------------------------------------------
 //
