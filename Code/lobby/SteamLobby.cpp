@@ -16,7 +16,6 @@
 S_API bool S_CALLTYPE SteamAPI_Init();
 //
 
-#include "CryLobby.h"
 //int LobbyCVars for steam lobbies 
 	int useSteamAsOnlineLobby;
 	int resetSteamAchievementsOnBoot;
