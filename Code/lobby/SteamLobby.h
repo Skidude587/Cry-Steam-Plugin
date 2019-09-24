@@ -17,7 +17,7 @@
 
 #pragma once 
 #include "StdAfx.h"
-
+#include "steam_int_h.h"
 #include "public/steam/steam_api.h"
 
 struct LobbyMenuItem_t
