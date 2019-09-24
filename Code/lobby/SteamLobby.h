@@ -12,7 +12,7 @@
 
 #pragma once 
 #include "StdAfx.h"
-#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
+#include <CryLobby/CommonICryLobby.h>
 
 
 struct LobbyMenuItem_t

@@ -10,18 +10,9 @@
 #include "StdAfx.h"
 #include "SteamServer.h"
 
-// TODO: add log calls
-
-// Check if theres a packet ready to be read.
+// Wrapper function to check if theres a packet ready to be read.
 bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 {
-	if (!SteamNetworking()->IsP2PPacketAvailable(pMsgSize))
-	{
-		// Add error log ...
-		CRY_ASSERT("SteamNetworking not working!");
-		return false;
-	}
-
 	return SteamNetworking()->IsP2PPacketAvailable(pMsgSize);
 }
 
@@ -31,22 +22,7 @@ bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 // Is sucessfully read.
 bool cSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize, CSteamID* pSteamIDRemote)
 {
-	if (!SteamNetworking()->ReadP2PPacket(pDest, destSize, pMsgSize, pSteamIDRemote))
-	{
-		// Add error log ...
-		CRY_ASSERT("SteamNetworking not working!");
-		return false;
-	}
-
 	return SteamNetworking()->ReadP2PPacket(pDest, destSize, pMsgSize, pSteamIDRemote);
-}
-
-cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
-{
-}
-
-cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionConnectFail, P2PSessionConnectFail_t)
-{
 }
 
 // Close P2P session with associated steamID.
@@ -54,35 +30,19 @@ void cSteamServer::CloseP2PSession(CSteamID steamIDRemote)
 {
 	if (!SteamNetworking()->CloseP2PSessionWithUser(steamIDRemote))
 	{
-		// Add error log ...
-		CRY_ASSERT("SteamNetworking not working!");
-		return;
-	}
-
-	if (!SteamNetworking()->CloseP2PSessionWithUser(steamIDRemote))
-	{
 		// No connection ever opened on that steamID.
-		// Add log ...
-
+		CRY_ASSERT("CloseP2PSession() no connection opened on steamID[%");
 	}
 }
 
 // Callback for recieving P2P requests.
 void cSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
 {
-	if (!SteamNetworking()->AcceptP2PSessionWithUser(pCallback->m_steamIDRemote))
-	{
-		// Add error log ...
-		CRY_ASSERT("SteamNetworking not working!");
-		return;
-	}
-
 	// If returned false, steamID is invalid. 
 	if (!SteamNetworking()->AcceptP2PSessionWithUser(pCallback->m_steamIDRemote))
 	{
 		// SteamID is invalid.
-		// Add error log ...
-		CRY_ASSERT("SteamNetworking not working!");
+		CRY_ASSERT("OnP2PSessionRequest() ");
 	}
 }
 
