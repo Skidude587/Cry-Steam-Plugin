@@ -10,6 +10,7 @@
 #include "SteamLobby.h"
 #include <CrySystem/ConsoleRegistration.h>
 #include <../../CryPlugins/CryGamePlatform/Interface/IPlatformService.h>
+#include "friends/SteamFriends.h"
 
 #if RELEASE
 static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
