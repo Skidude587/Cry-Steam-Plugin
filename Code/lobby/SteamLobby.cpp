@@ -9,7 +9,6 @@
 #include "StdAfx.h"
 #include "SteamLobby.h"
 #include "steam_int_h.h"
-#include "public/steam/steam_api.h"
 //Calls up Steam API lib
 #if USING_STEAM
 #pragma comment(lib, "steam_api64.lib")
