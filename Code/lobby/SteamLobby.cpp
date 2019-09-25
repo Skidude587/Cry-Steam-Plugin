@@ -412,3 +412,8 @@ CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDat
 CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
 {
 }
+
+CryLobbyTaskID ICryLobby::CreateTask()
+{
+	return CryLobbyTaskID();
+}
