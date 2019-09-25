@@ -84,8 +84,7 @@ ECryLobbyError CSteamLobbySystem::Initialise(ECryLobbyServiceFeatures features, 
 
 	if (SteamUser() == NULL)
 	{
-		if ((pPlugin == nullptr) ||
-			(pPlugin->GetMainService() == nullptr)
+		if ((pPlugin == nullptr) || (pPlugin->GetMainService() == nullptr)
 		{
 			ret = eCLE_NotInitialised;
 		}

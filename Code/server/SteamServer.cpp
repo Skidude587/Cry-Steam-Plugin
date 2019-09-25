@@ -130,9 +130,15 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 
 		return pPortVar->GetIVal();
 	}
+	inline void cSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
+	{
+		if (ISteamGameServer* pGameServer = SteamGameServer())
+		{
+			pGameServer->SendUserDisconnect(ExtractSteamID(userId));
+		}
+	}
 	cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
 	{
 	}
 	;
-
 
