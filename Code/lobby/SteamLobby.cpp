@@ -173,6 +173,11 @@ void SteamLobbyService::Tick(CTimeValue tv)
 {
 }
 
+ICryMatchMaking * SteamLobbyService::GetMatchMaking()
+{
+	return nullptr;
+}
+
 ECryLobbyError SteamLobbyService::GetSystemTime(uint32 user, SCrySystemTime * pSystemTime)
 {
 	return ECryLobbyError();
