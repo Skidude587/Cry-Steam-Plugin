@@ -105,13 +105,13 @@ const char* cSteamServer::GetPublicIPString() const
 	return sIP;
 }
 
-void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
+/*void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
 		return pPortVar->GetIVal();
 	}
-}
+}*/
 
 inline void cSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
