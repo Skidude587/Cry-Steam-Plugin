@@ -15,6 +15,7 @@
 #include <CryLobby/CommonICryLobby.h>
 #include "public/steam/steam_api.h"
 #include "public/steam/steam_gameserver.h"
+#include <../../CryEngine/CryCommon/CrySystem/ISystem.h>
 
 #define CRYLOBBY_USER_NAME_LENGTH        32
 #define CRYLOBBY_USER_GUID_STRING_LENGTH 40
@@ -29,7 +30,11 @@ struct SCryUserID : public CMultiThreadRefCount
 		return CryFixedStringT<CRYLOBBY_USER_GUID_STRING_LENGTH>("");
 	}
 };
+#define TMemHdl                     LobbyTMemHdl
+typedef void* TMemHdl;
+#define TMemInvalidHdl NULL
 
+class CCryLobby;
 
 struct SCrySharedUserID : public SCryUserID
 {
@@ -154,7 +159,7 @@ struct Lobby_t
 	char m_rgchName[256];
 };
 
-
+typedef void(*CryLobbyServiceCallback)(ECryLobbyError error, CCryLobby* arg, ECryLobbyService service);
 
 class CSteamLobbySystem
 {
