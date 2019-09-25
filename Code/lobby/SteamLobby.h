@@ -36,18 +36,29 @@ public:
 	int lobbySteamOnlinePort;
 #endif // USE_STEAM
 	static CLobbyCVars * m_pThis;
-}
-typedef void(*CryLobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
+};
+
+typedef void (*CryLobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
 #define TO_GAME_FROM_LOBBY(...) { CCryLobby* pLobby = static_cast<CCryLobby*>(CCryLobby::GetLobby()); pLobby->LockToGameMutex(); pLobby->GetToGameQueue()->Add(__VA_ARGS__); pLobby->UnlockToGameMutex(); }
 typedef CryLockT<CRYLOCK_RECURSIVE> CryLobbyMutex;
 #define LOBBY_AUTO_LOCK AUTO_LOCK_T(CryLobbyMutex, ((CCryLobby*)CCryLobby::GetLobby())->GetMutex())
 #define FROM_GAME_TO_LOBBY         static_cast<CCryLobby*>(CCryLobby::GetLobby())->GetFromGameQueue()->Add
-struct UserID;
+struct UserID
+{
+	IEntity* m_obj;
+	UserID* UserInvalidID;
+
+	EntityId GetUserID()
+	{
+		return m_obj->GetId();
+	}
+
+};
+
 typedef uint32 LobbyUserIndex;
 const LobbyUserIndex LobbyInvalidUserIndex = 0xffffffff;
 typedef uint32 LobbySendID;
-const UserID* UserInvalidID = nullptr;
-IEntity* m_obj;
+
 
 #define MAX_LOBBY_TASKS             10
 struct IMementoManagedThing
@@ -78,11 +89,6 @@ struct Lobby_t
 	CSteamID m_steamIDLobby;
 	char m_rgchName[256];
 };
-
-EntityId GetUserID()
-{
-	return m_obj->GetId();
-}
 
 
 struct SSystemTime
@@ -418,11 +424,12 @@ private:
 
 };
 
-class CSteamLobbySystem
+class CSteamLobbySystem : public UserID
 {
 
 public:
-	virtual UserID      GetUserID(uint32 user) { return UserInvalidID; }
+	/* Looks like this would work if not let me know TODO: Maybe change pointer return to uint32 */
+	virtual UserID  GetUserID(uint32 user) { return UserInvalidID->GetUserID; }
 	virtual ECryLobbyError GetSystemTime(uint32 user, SSystemTime* pSystemTime);
 
 	virtual void           OnPacket(const TNetAddress& addr, CCryLobbyPacket* pPacket);
