@@ -81,6 +81,31 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 			return pGameServer->GetPublicIP();
 
 		return 0;
+		const char* cSteamServer::GetPublicIPString() const
+		{
+			uint32 publicIP = GetPublicIP();
+
+			const int NBYTES = 4;
+			uint8 octet[NBYTES];
+			char* ipAddressFinal = new char[15];
+			for (int i = 0; i < NBYTES; i++)
+			{
+				octet[i] = publicIP >> (i * 8);
+			}
+			cry_sprintf(ipAddressFinal, NBYTES, "%d.%d.%d.%d", octet[3], octet[2], octet[1], octet[0]);
+
+			string sIP = string(ipAddressFinal);
+			delete[] ipAddressFinal;
+
+			return sIP;
+		};
+		void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
+		{
+			if (ISteamGameServer* pGameServer = SteamGameServer())
+			{
+				pGameServer->SendUserDisconnect(ExtractSteamID(userId));
+			}
+		};
 	};
 
 	IServer::Identifier cSteamServer::GetIdentifier() const
@@ -110,28 +135,4 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 	}
 	;
 
-	const char* cSteamServer::GetPublicIPString() const
-	{
-		uint32 publicIP = GetPublicIP();
 
-		const int NBYTES = 4;
-		uint8 octet[NBYTES];
-		char* ipAddressFinal = new char[15];
-		for (int i = 0; i < NBYTES; i++)
-		{
-			octet[i] = publicIP >> (i * 8);
-		}
-		cry_sprintf(ipAddressFinal, NBYTES, "%d.%d.%d.%d", octet[3], octet[2], octet[1], octet[0]);
-
-		string sIP = string(ipAddressFinal);
-		delete[] ipAddressFinal;
-
-		return sIP;
-	};
-	void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
-	{
-		if (ISteamGameServer* pGameServer = SteamGameServer())
-		{
-			pGameServer->SendUserDisconnect(ExtractSteamID(userId));
-		}
-	};
