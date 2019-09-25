@@ -120,6 +120,11 @@ inline void cSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 	}
 }
 
+//P2P Connection Request Callback
+cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
+{
+}
+
 IServer::Identifier cSteamServer::GetIdentifier() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
