@@ -11,6 +11,7 @@
 
 #include "Plugin.h"
 
+#include <steam_api.h>
 #include <CrySchematyc/Env/IEnvRegistry.h>
 #include <CrySchematyc/Env/EnvPackage.h>
 #include <CrySchematyc/Utils/SharedString.h>
@@ -75,6 +76,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		if (!SteamInput()->Init())
 		{
 			CRY_ASSERT("Steam needs to be running");
+			return;
 
 		}
 #pragma comment(lib, "steam_api64.lib")
