@@ -120,7 +120,7 @@ inline void CSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
-		pGameServer->SendUserDisconnect(Detail::ExtractSteamIDAppID(userId));
+		pGameServer->SendUserDisconnect(ExtractSteamIDAppID(userId));
 	}
 }
 

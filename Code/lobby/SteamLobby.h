@@ -22,6 +22,8 @@ typedef uint32 LobbyUserIndex;
 const LobbyUserIndex CryLobbyInvalidUserIndex = 0xffffffff;
 typedef uint32 CryLobbySendID;
 const UserID UserInvalidID = NULL;
+IEntity* m_obj;
+
 #define MAX_LOBBY_TASKS             10
 struct IMementoManagedThing
 {
@@ -51,10 +53,13 @@ struct Lobby_t
 	CSteamID m_steamIDLobby;
 	char m_rgchName[256];
 };
+
 EntityId GetUserID()
 {
-	return m_obj.main->userID;
+	return m_obj->GetId();
 }
+
+
 struct SSystemTime
 {
 	uint16 m_Year;
