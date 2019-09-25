@@ -8,14 +8,10 @@
 ////////////////////////////////////////////////////////////////////////////
 #include "StdAfx.h"
 #include "SteamLobby.h"
-/*#include <CrySystem/ConsoleRegistration.h>
-#include <../../CryPlugins/CryGamePlatform/Interface/IPlatformService.h>
-#include <../../CryPlugins/CryGamePlatform/Interface/IGamePlatform.h>
-#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
-#include <../../CryPlugins/CryLobby/Interface/CryLobby/ICryLobbyPrivate.h>*/
 #include "friends/SteamFriends.h"
-//#include "NetLog.h"
 #include "server/SteamServer.h"
+#include <steam_api.h>
+
 
 #if (RELEASE)
 static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
