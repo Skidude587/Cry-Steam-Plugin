@@ -11,10 +11,13 @@
 #include "SteamServer.h"
 #include <steam_api.h>
 #include <steam_gameserver.h>
+#include <steamclientpublic.h>
 
+
+using namespace Detail;
 
 // Wrapper function to check if theres a packet ready to be read.
-bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
+bool CSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 {
 	return SteamNetworking()->IsP2PPacketAvailable(pMsgSize);
 }
@@ -23,13 +26,13 @@ bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 // Returns false if there is no packet available to read, make sure to call
 // IsP2PPacketAvailable() prior to ReadP2PPacket. Returns true if a packet
 // Is sucessfully read.
-bool cSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize, CSteamID* pSteamIDRemote)
+bool CSteamServer::ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize, CSteamID* pSteamIDRemote)
 {
 	return SteamNetworking()->ReadP2PPacket(pDest, destSize, pMsgSize, pSteamIDRemote);
 }
 
 // Close P2P session with associated steamID.
-void cSteamServer::CloseP2PSession(CSteamID steamIDRemote)
+void CSteamServer::CloseP2PSession(CSteamID steamIDRemote)
 {
 	if (!SteamNetworking()->CloseP2PSessionWithUser(steamIDRemote))
 	{
@@ -39,7 +42,7 @@ void cSteamServer::CloseP2PSession(CSteamID steamIDRemote)
 }
 
 // Callback for recieving P2P requests.
-void cSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
+void CSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
 {
 	// If returned false, steamID is invalid. 
 	if (!SteamNetworking()->AcceptP2PSessionWithUser(pCallback->m_steamIDRemote))
@@ -50,7 +53,7 @@ void cSteamServer::OnP2PSessionRequest(P2PSessionRequest_t* pCallback)
 }
 
 // Callback for when a P2P connection fails.
-void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
+void CSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 {
 	// If no error, ignore.
 	if (pCallback->m_eP2PSessionError != k_EP2PSessionErrorNone)
@@ -78,7 +81,7 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 	}
 }
 
-uint32 cSteamServer::GetPublicIP() const
+uint32 CSteamServer::GetPublicIP() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 		return pGameServer->GetPublicIP();
@@ -86,7 +89,7 @@ uint32 cSteamServer::GetPublicIP() const
 	return 0;
 }
 
-const char* cSteamServer::GetPublicIPString() const
+const char* CSteamServer::GetPublicIPString() const
 {
 	uint32 publicIP = GetPublicIP();
 
@@ -113,21 +116,21 @@ const char* cSteamServer::GetPublicIPString() const
 	}
 }*/
 
-inline void cSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
+inline void CSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
-		pGameServer->SendUserDisconnect(ExtractSteamID(userId));
+		pGameServer->SendUserDisconnect(Detail::ExtractSteamIDAppID(userId));
 	}
 }
 
 //P2P Connection Request Callback
-cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
+CSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
 {
 }
 
 
-IServer::Identifier cSteamServer::GetIdentifier() const
+IServer::Identifier CSteamServer::GetIdentifier() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 		return pGameServer->GetSteamID().ConvertToUint64();
@@ -135,7 +138,7 @@ IServer::Identifier cSteamServer::GetIdentifier() const
 	return 0;
 }
 
-uint32 cSteamServer::GetPublicIP() const
+uint32 CSteamServer::GetPublicIP() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 		return pGameServer->GetPublicIP();
@@ -143,7 +146,7 @@ uint32 cSteamServer::GetPublicIP() const
 	return 0;
 }
 
-uint16 cSteamServer::GetPort() const
+uint16 CSteamServer::GetPort() const
 {
 	ICVar* pPortVar = gEnv->pConsole->GetCVar("cl_serverport");
 
