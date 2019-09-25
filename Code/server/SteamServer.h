@@ -334,7 +334,7 @@ public:
 			CSteamID steamUserId;
 			if (pGameServer->SendUserConnectAndAuthenticate(clientIP, authData, authDataLength, &steamUserId))
 			{
-				userId = CreateAccountIdentifier(steamUserId);
+				userId = Detail::CreateAccountIdentifier(steamUserId);
 				return true;
 			}
 			else
