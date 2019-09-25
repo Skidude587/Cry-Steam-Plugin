@@ -10,8 +10,7 @@
 #include "StdAfx.h"
 #include "SteamServer.h"
 #include <public/steam/steam_gameserver.h>
-#include <CryExtension/CryTypeID.h>
-#include <CrySerialization/CryStringsImpl.h>
+
 
 // Wrapper function to check if theres a packet ready to be read.
 bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
