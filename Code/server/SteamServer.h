@@ -10,6 +10,8 @@
 #pragma once 
 #include "StdAfx.h"
 #include <steam_api.h>
+#include <steamclientpublic.h>
+
 //Identifier
 //! Simple opaque class used to store a service-specific identifier.
 template <typename Traits>
@@ -139,6 +141,8 @@ inline const char* GetServiceDebugName(const ServiceIdentifier& svcId)
 				((svcId == NullServiceID) ? "Null" : "Unknown")))));
 }
 
+
+/* Namespace is working as intended */
 namespace Detail {
 	struct SAccountTraits : public STraitsBase
 	{
@@ -325,7 +329,7 @@ namespace Detail {
 		return k_steamIDNil;
 	}
 
-	inline AppId_t ExtractSteamID(const ApplicationIdentifier& appId)
+	inline AppId_t ExtractSteamIDAppID(const ApplicationIdentifier& appId)
 	{
 		if (appId.Service() == SteamServiceID)
 		{
@@ -358,7 +362,7 @@ namespace Detail {
 	inline LobbyIdentifier       CreateLobbyIdentifier(const CSteamID& steamId) { return CreateLobbyIdentifier(steamId.ConvertToUint64()); }
 }
 
-class cSteamServer
+class CSteamServer
 	: public IServer
 {
 public:
@@ -366,8 +370,8 @@ public:
 	bool IsP2PPacketAvailable(uint32* pMsgSize);
 	bool ReadP2PPacket(void* pDest, uint32 destSize, uint32* pMsgSize, CSteamID* pSteamIDRemote);
 	
-	explicit cSteamServer(bool bLocal);
-	virtual ~cSteamServer();
+	explicit CSteamServer(bool bLocal);
+	virtual ~CSteamServer();
 
 	// IServer
 	virtual IServer::Identifier GetIdentifier() const override;
