@@ -400,15 +400,3 @@ void CSteamLobbySystem::GetSocketPorts(uint16 & connectPort, uint16 & listenPort
 void CSteamLobbySystem::InviteAccepted(uint32 user, CrySessionID id)
 {
 }
-
-CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
-{
-}
-
-CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
-{
-}
-
-CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
-{
-}
