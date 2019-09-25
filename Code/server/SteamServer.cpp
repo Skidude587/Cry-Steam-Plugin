@@ -9,7 +9,8 @@
 
 #include "StdAfx.h"
 #include "SteamServer.h"
-#include <public/steam/steam_gameserver.h>
+#include <steam_api.h>
+#include <steam_gameserver.h>
 
 
 // Wrapper function to check if theres a packet ready to be read.
