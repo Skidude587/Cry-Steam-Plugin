@@ -32,15 +32,12 @@ add_sources("lobby_uber.cpp"
     PROJECTS Plugin
     SOURCE_GROUP "lobby"
 		"lobby/SteamLobby.cpp"
-		"lobby/CryLobby.h"
 		"lobby/SteamLobby.h"
 )
 add_sources("server_uber.cpp"
     PROJECTS Plugin
     SOURCE_GROUP "server"
 		"server/SteamServer.cpp"
-		"server/Config.h"
-		"server/NetLog.h"
 		"server/SteamServer.h"
 )
 

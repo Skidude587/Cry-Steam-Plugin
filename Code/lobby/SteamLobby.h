@@ -13,10 +13,12 @@
 #pragma once 
 #include "StdAfx.h"
 //#include <CryLobby/CommonICryLobby.h>
-#include "public/steam/steam_api.h"
-#include "public/steam/steam_gameserver.h"
+#include <steam_api.h>
+#include <steam_gameserver.h>
 /*Von will create the include in cmake*/
-#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
+#include <CryLobby/CommonICryLobby.h>
+
+
 struct CryUserID;
 struct LobbyMenuItem_t
 {
@@ -34,9 +36,12 @@ struct LobbyMenuItem_t
 	ELobbyMenuCommand m_eCommand;
 	CSteamID m_steamIDLobby;	// set if k_ELobbyMenuItemInviteToLobby	
 };
-class SteamLobbyService : public CCryLobbyService
+class SteamLobbyService 
 {
 public:
+
+
+
 	SteamLobbyService(CCryLobby* pLobby, ECryLobbyService service);
 	virtual ~SteamLobbyService(void);
 
@@ -44,6 +49,8 @@ public:
 	virtual ECryLobbyError   Terminate(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB);
 	virtual void             Tick(CTimeValue tv);
 	virtual ICryMatchMaking* GetMatchMaking();
+
+	/* Function below has been change i believe check CCrylobby pointer... */
 	virtual CryUserID      GetUserID(uint32 user) { return CryUserInvalidID; }
 	virtual ECryLobbyError GetSystemTime(uint32 user, SCrySystemTime* pSystemTime);
 
