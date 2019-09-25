@@ -5,13 +5,12 @@
 
 #pragma once
 
-#include "Config.h"
-#include <CryNetwork/INetwork.h>
+#include "INetwork.h"
 #include "INetworkMember.h"
 #include "objcnt.h"
 #include "NetCVars.h"
-#include "Socket/ISocketIOManager.h"
-#include "Socket/NetResolver.h"
+#include "ISocketIOManager.h"
+#include "NetResolver.h"
 
 struct INetworkPrivate : public INetwork
 {

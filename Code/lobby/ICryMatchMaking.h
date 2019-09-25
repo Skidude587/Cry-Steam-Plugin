@@ -1,7 +1,7 @@
 // Copyright 2001-2019 Crytek GmbH / Crytek Group. All rights reserved.
 #pragma once
 
-#include <CommonICryMatchMaking.h>
+#include "ICryMatchMaking.h"
 #include <CryNetwork/INetwork.h>
 
 // Overview of ICryMatchMaking
@@ -85,7 +85,7 @@
 // When the session is complete SessionDelete should be called this will free up all resources used by the session.
 //
 
-#include <CryLobby/ICryLobby.h>                                                 // <> required for Interfuscator
+#include "ICryLobby.h"                                                // <> required for Interfuscator
 
 class CCryLobbyPacket;
 
