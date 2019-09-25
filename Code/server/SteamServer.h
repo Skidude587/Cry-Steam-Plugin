@@ -308,6 +308,7 @@ namespace Detail {
 }
 
 class cSteamServer
+	: public IServer
 {
 public:
 	void CloseP2PSession(CSteamID steamIDRemote);
@@ -318,14 +319,14 @@ public:
 	virtual ~cSteamServer();
 
 	// IServer
-	virtual IServer::Identifier GetIdentifier() const /*override*/;
+	virtual IServer::Identifier GetIdentifier() const override;
 
-	virtual uint32 GetPublicIP() const /*override*/;
-	virtual const char* GetPublicIPString() const /*override*/;
+	virtual uint32 GetPublicIP() const override;
+	virtual const char* GetPublicIPString() const override;
 
-	virtual uint16 GetPort() const /*override*/;
+	virtual uint16 GetPort() const override;
 
-	virtual bool IsLocal() const /*override*/ { return m_bLocal; }
+	virtual bool IsLocal() const override { return m_bLocal; }
 
 	virtual bool AuthenticateUser(uint32 clientIP, char* authData, int authDataLength, AccountIdentifier &userId) /*override*/
 	{
