@@ -13,7 +13,7 @@
 #pragma once 
 
 #include "StdAfx.h"
-
+#include <steam_api.h>
 
 // a friends list item
 struct FriendsListMenuItem_t

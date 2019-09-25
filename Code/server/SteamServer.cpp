@@ -14,8 +14,6 @@
 #include <steamclientpublic.h>
 
 
-using namespace Detail;
-
 // Wrapper function to check if theres a packet ready to be read.
 bool CSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 {
@@ -120,7 +118,7 @@ inline void CSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
-		pGameServer->SendUserDisconnect(ExtractSteamIDAppID(userId));
+		pGameServer->SendUserDisconnect(userId);
 	}
 }
 
