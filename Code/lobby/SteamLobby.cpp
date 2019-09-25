@@ -12,190 +12,211 @@
 #include "server/SteamServer.h"
 #include <steam_api.h>
 
-
-#if (RELEASE)
-static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
-{
-	ISteamFriends* pSteamFriends = SteamFriends();
-	if (!pSteamFriends)
-	{
-		CryWarning(VALIDATOR_MODULE_SYSTEM, VALIDATOR_WARNING, "Steam friends service not available");
-		return;
-	}
-	uint32 friendCount = pSteamFriends->GetFriendCount(k_EFriendFlagImmediate);
-	uint32 argCount = pArgs->GetArgCount();
-
-	if (argCount > 1)
-	{
-		uint32 argIndex = 1;
-		SteamLobbyService* CCryLobbyService = (SteamLobbyService*)gEnv->pLobby->/*GetLobbyService(eCLS_Online)*/;
-		CryLobbySessionHandle lsh = ((CCryMatchMaking*)pLobbyService->GetMatchMaking())->GetCurrentHostedNetNubSessionHandle();
-
-		if (lsh != CryLobbyInvalidSessionHandle)
-		{
-			while (argIndex < argCount)
-			{
-				uint32 friendIndex = atoi(pArgs->GetArg(argIndex++));
-				if (friendIndex < friendCount)
-				{
-					CSteamID pFriendID = new CSteamID (pSteamFriends->GetFriendByIndex(friendIndex, k_EFriendFlagImmediate));
-					CryUserID id(pFriendID);
-					CrySessionHandle sh = ((CCryMatchMaking*)pLobbyService->GetMatchMaking())->CreateGameSessionHandle(lsh, CryMatchMakingInvalidConnectionUID);
-					NetLog("[STEAM]: Sending invite to [%s]...", pSteamFriends->GetFriendPersonaName(pFriendID->m_steamID));
-					pLobbyService->GetFriends()->FriendsSendGameInvite(0, sh, &id, 1, NULL, NULL, NULL);
-				}
-				else
-				{
-					NetLog("[STEAM]: Invalid friend index [%d] - ignoring... (see steam_show_friends)", friendIndex);
-				}
-			}
-		}
-		else
-		{
-			NetLog("[STEAM]: No hosted nub session...");
-		}
-	}
-	else
-	{
-		NetLog("[STEAM]: Person to invite not defined.");
-	}
-}
-
-#endif
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-CSteamLobbySystem::CSteamLobbySystem(CCryLobby* pLobby, ECryLobbyService service)
-	:CSteamLobbySystem(pLobby, service)
-
-#if (RELEASE)
-	gEnv->pConsole->UnregisterVariable("steam_invite_to_game", true);
-	gEnv->pConsole->UnregisterVariable("steam_show_friends", true);
-	gEnv->pConsole->UnregisterVariable("steam_show_overlay", true);
-#endif // (RELEASE)
-
-ECryLobbyError CSteamLobbySystem::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
-{
-	CSteamLobbySystem::~CSteamLobbySystem*(void)
-	{
-	}
-	ECryLobbyError ret = eCLE_Success;
-
-	if (SteamUser() == NULL)
-	{
-		if ((pPlugin == nullptr) || (pPlugin->GetMainService() == nullptr)
-		{
-			ret = eCLE_NotInitialised;
-		}
-
-		if (ret != eCLE_Success)
-		{
-			NetLog("[STEAM]: SteamAPI_Init() failed");
-			return ret;
-		}
-		NetLog("[STEAM]: SteamAPI_Init() succeeded");
-	}
-
-
-#if USE_CRY_MATCHMAKING
-	if ((ret == eCLE_Success) && (m_pMatchmaking == NULL) && (features & eCLSO_Matchmaking))
-	{
-		m_pMatchmaking = new CCrySteamMatchMaking(m_pLobby, this, m_service);
-
-		if (m_pMatchmaking != NULL)
-		{
-			ret = m_pMatchmaking->Initialise();
-		}
-		else
-		{
-			return eCLE_OutOfMemory;
-		}
-	}
-#endif // USE_CRY_MATCHMAKING
-
-
-//Steam Lobby System Int()
-CSteamLobbySystem::CSteamLobbySystem()
-	{
-	}
-//
-
-//Steam Lobby Id
-void CSteamLobbySystem::SetLobbySteamID(const CSteamID & steamIDLobby)
-	{
-	}
-//
-
-//Steam callback person state change
-CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
-	{
-	}
-//
-
-//Steam lobby system data update
-CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
-	{
-	}
-//
-
-//Steam lobby system chat update
-CSteamLobbySystem::CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
-	{
-	}
-//
-
-//Steam callback person state change
-STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
-	{
-	}
-//
-
-SteamLobbyService::SteamLobbyService(CCryLobby * pLobby, ECryLobbyService service)
+CLobbyService::~CLobbyService()
 {
 }
 
-SteamLobbyService::~SteamLobbyService(void)
-{
-}
-
-ECryLobbyError SteamLobbyService::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+ECryLobbyError CLobbyService::Initialise(ECryLobbyServiceFeatures features, LobbyServiceCallback pCB)
 {
 	return ECryLobbyError();
 }
 
-ECryLobbyError SteamLobbyService::Terminate(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+ECryLobbyError CLobbyService::Terminate(ECryLobbyServiceFeatures features, LobbyServiceCallback pCB)
 {
 	return ECryLobbyError();
 }
 
-void SteamLobbyService::Tick(CTimeValue tv)
+ICryTCPServicePtr CLobbyService::GetTCPService(const char * pService)
+{
+	return ICryTCPServicePtr();
+}
+
+ICryTCPServicePtr CLobbyService::GetTCPService(const char * pServer, uint16 port, const char * pUrlPrefix)
+{
+	return ICryTCPServicePtr();
+}
+
+ECryLobbyError CLobbyService::GetUserPrivileges(uint32 user, CryLobbyTaskID * pTaskID, LobbyPrivilegeCallback pCB, void * pCBArg)
+{
+	return ECryLobbyError();
+}
+
+void CLobbyService::MakeAddrPCCompatible(TNetAddress & addr)
 {
 }
 
-ICryMatchMaking * SteamLobbyService::GetMatchMaking()
+bool CLobbyService::GetFlag(ECryLobbyServiceFlag flag)
+{
+	return false;
+}
+
+void CLobbyService::GetSocketPorts(uint16 & connectPort, uint16 & listenPort)
+{
+}
+
+void CLobbyService::CancelTask(CryLobbyTaskID lTaskID)
+{
+}
+
+void CLobbyService::CreateSocketNT(void)
+{
+}
+
+void CLobbyService::FreeSocketNT(void)
+{
+}
+
+ECryLobbyError CLobbyService::StartTask(uint32 eTask, uint32 user, bool startRunning, CryLobbyServiceTaskID * pLSTaskID, CryLobbyTaskID * pLTaskID, void * pCb, void * pCbArg)
+{
+	return ECryLobbyError();
+}
+
+void CLobbyService::FreeTask(CryLobbyServiceTaskID lsTaskID)
+{
+}
+
+void CLobbyService::UpdateTaskError(CryLobbyServiceTaskID lsTaskID, ECryLobbyError error)
+{
+}
+
+void CLobbyService::StartTaskRunning(CryLobbyServiceTaskID lsTaskID)
+{
+}
+
+void CLobbyService::StopTaskRunning(CryLobbyServiceTaskID lsTaskID)
+{
+}
+
+void CLobbyService::EndTask(CryLobbyServiceTaskID lsTaskID)
+{
+}
+
+ECryLobbyError CLobbyService::CreateTaskParamMem(CryLobbyServiceTaskID lsTaskID, uint32 param, const void * pParamData, size_t paramDataSize)
+{
+	return ECryLobbyError();
+}
+
+CMementoMemoryManager::CMementoMemoryManager(const string & name)
+{
+}
+
+CMementoMemoryManager::~CMementoMemoryManager()
+{
+}
+
+void * CMementoMemoryManager::AllocPtr(size_t sz, void * callerOverride)
 {
 	return nullptr;
 }
 
-ECryLobbyError SteamLobbyService::GetSystemTime(uint32 user, SCrySystemTime * pSystemTime)
+void CMementoMemoryManager::FreePtr(void * p, size_t sz)
+{
+}
+
+
+void CMementoMemoryManager::ResizeHdl(Hdl hdl, size_t sz)
+{
+}
+
+void CMementoMemoryManager::FreeHdl(Hdl hdl)
+{
+}
+
+void CMementoMemoryManager::AddHdlToSizer(Hdl hdl, ICrySizer * pSizer)
+{
+}
+
+void CMementoMemoryManager::GetMemoryStatistics(ICrySizer * pSizer, bool countingThis)
+{
+}
+
+void CMementoMemoryManager::DebugDraw()
+{
+}
+
+void CMementoMemoryManager::Tick()
+{
+}
+
+CMementoMemoryManager::CMementoMemoryManagerAllocator::CMementoMemoryManagerAllocator()
+{
+}
+
+CMementoMemoryManager::CMementoMemoryManagerAllocator::~CMementoMemoryManagerAllocator()
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::AddCMementoMemoryManager()
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::RemoveCMementoMemoryManager()
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::Tick()
+{
+}
+
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::FreeHdl(Hdl hdl)
+{
+}
+
+void * CMementoMemoryManager::CMementoMemoryManagerAllocator::AllocPtr(size_t sz)
+{
+	return nullptr;
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::FreePtr(void * p, size_t sz)
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::ResizeHdl(Hdl hdl, size_t sz)
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::InitHandleData(SHandleData & hd, size_t sz)
+{
+}
+
+void CMementoMemoryManager::CMementoMemoryManagerAllocator::DebugDraw(int x, int & y, size_t & totalAllocated)
+{
+}
+
+ECryLobbyError CSteamLobbySystem::GetSystemTime(uint32 user, SSystemTime * pSystemTime)
 {
 	return ECryLobbyError();
 }
 
-void SteamLobbyService::OnPacket(const TNetAddress & addr, CCryLobbyPacket * pPacket)
+void CSteamLobbySystem::OnPacket(const TNetAddress & addr, CCryLobbyPacket * pPacket)
 {
 }
 
-void SteamLobbyService::OnError(const TNetAddress & addr, ESocketError error, CryLobbySendID sendID)
+void CSteamLobbySystem::OnError(const TNetAddress & addr, ESocketError error, LobbySendID sendID)
 {
 }
 
-void SteamLobbyService::OnSendComplete(const TNetAddress & addr, CryLobbySendID sendID)
+void CSteamLobbySystem::OnSendComplete(const TNetAddress & addr, LobbySendID sendID)
 {
 }
 
-void SteamLobbyService::GetSocketPorts(uint16 & connectPort, uint16 & listenPort)
+void CSteamLobbySystem::GetSocketPorts(uint16 & connectPort, uint16 & listenPort)
 {
 }
 
-void SteamLobbyService::InviteAccepted(uint32 user, CrySessionID id)
+void CSteamLobbySystem::InviteAccepted(uint32 user, CrySessionID id)
+{
+}
+
+CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_CallbackPersonaStateChange)
+{
+}
+
+CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate)
+{
+}
+
+CSteamLobbySystem::STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate)
 {
 }
