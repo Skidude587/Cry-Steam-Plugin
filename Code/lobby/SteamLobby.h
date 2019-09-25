@@ -16,7 +16,7 @@
 #include "public/steam/steam_api.h"
 #include "public/steam/steam_gameserver.h"
 /*Von will create the include in cmake*/
-#include "CryLobby.h"
+#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
 struct CryUserID;
 struct LobbyMenuItem_t
 {

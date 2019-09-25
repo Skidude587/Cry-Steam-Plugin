@@ -93,7 +93,8 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
         "sys_ime": "1",
         "sys_splashscreen": "Libs/UI/textures/startscreen.tif",
         "sys_target_platforms": "pc,ps4,xboxone,linux"
-        "sys_steamAppId": "1160200"
+        "sys_steamAppId": "480",
+	"net_useSteamAsOnlineLobby": "1"
     },
     "console_commands": {}
 }
@@ -110,6 +111,6 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
 ## GameBrowser.cpp Example
 ```
 #if USE_STEAM
-#define STEAM_APPID (1160200)
+#define STEAM_APPID (480)
 #endif
 ```
