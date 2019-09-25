@@ -270,7 +270,7 @@ namespace Detail {
 			}
 		}
 	};
-	inline CSteamID ExtractSteamID(const AccountIdentifier& accountId)
+	inline CSteamID ExtractSteamIDAccount(const AccountIdentifier& accountId)
 	{
 		if (accountId.Service() == SteamServiceID)
 		{
@@ -285,7 +285,7 @@ namespace Detail {
 		return k_steamIDNil;
 	}
 
-	inline CSteamID ExtractSteamID(const LobbyIdentifier& lobbyId)
+	inline CSteamID ExtractSteamIDLobby(const LobbyIdentifier& lobbyId)
 	{
 		if (lobbyId.Service() == SteamServiceID)
 		{
