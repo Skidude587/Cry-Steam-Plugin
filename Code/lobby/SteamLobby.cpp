@@ -12,7 +12,6 @@
 #include "server/SteamServer.h"
 #include <steam_api.h>
 
-
 CLobbyService::~CLobbyService()
 {
 }
@@ -114,12 +113,12 @@ void CLobbyService::CancelTask(CryLobbyTaskID lTaskID)
 
 void CLobbyService::CreateSocketNT(void)
 {
-	//m_pLobby->InternalSocketCreate(m_service);
+	m_pLobby->InternalSocketCreate(m_service);
 }
 
 void CLobbyService::FreeSocketNT(void)
 {
-	//m_pLobby->InternalSocketFree(m_service);
+	m_pLobby->InternalSocketFree(m_service);
 }
 
 

@@ -38,6 +38,7 @@ add_sources("server_uber.cpp"
     PROJECTS Plugin
     SOURCE_GROUP "server"
 		"server/SteamServer.cpp"
+		"server/NetLog.h"
 		"server/SteamServer.h"
 )
 
