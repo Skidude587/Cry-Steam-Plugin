@@ -139,6 +139,29 @@ inline const char* GetServiceDebugName(const ServiceIdentifier& svcId)
 }
 
 namespace Detail {
+	struct SAccountTraits : public STraitsBase
+	{
+		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+		{
+			return STraitsBase::ToDebugString(svcId, "Account", value);
+		}
+	};
+
+	struct SLobbyTraits : public STraitsBase
+	{
+		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+		{
+			return STraitsBase::ToDebugString(svcId, "Lobby", value);
+		}
+	};
+
+	struct SApplicationTraits : public STraitsBase
+	{
+		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+		{
+			return STraitsBase::ToDebugString(svcId, "Application", value);
+		}
+	};
 
 	using NumericIdentifierValue = uint64;
 
@@ -320,29 +343,7 @@ namespace Detail {
 		CRY_ASSERT(false, "[Steam] ApplicationIdentifier '%s' does not seem to contain a valid Steam ID", appId.ToDebugString());
 		return k_uAppIdInvalid;
 	}
-	struct SAccountTraits : public STraitsBase
-	{
-		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
-		{
-			return STraitsBase::ToDebugString(svcId, "Account", value);
-		}
-	};
-
-	struct SLobbyTraits : public STraitsBase
-	{
-		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
-		{
-			return STraitsBase::ToDebugString(svcId, "Lobby", value);
-		}
-	};
-
-	struct SApplicationTraits : public STraitsBase
-	{
-		static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
-		{
-			return STraitsBase::ToDebugString(svcId, "Application", value);
-		}
-	};
+	
 
 	using AccountIdentifierValue = Detail::NumericIdentifierValue;
 	using LobbyIdentifierValue = Detail::NumericIdentifierValue;

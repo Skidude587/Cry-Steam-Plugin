@@ -14,7 +14,8 @@
 #include <../../CryPlugins/CryLobby/Module/CryLobby.h>
 #include <../../CryPlugins/CryLobby/Interface/CryLobby/ICryLobbyPrivate.h>*/
 #include "friends/SteamFriends.h"
-//#include "lobby/NetLog.h"
+#include "NetLog.h"
+#include "server/SteamServer.h"
 
 #if (RELEASE)
 static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
@@ -41,7 +42,7 @@ static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 				uint32 friendIndex = atoi(pArgs->GetArg(argIndex++));
 				if (friendIndex < friendCount)
 				{
-					/*SteamUserID**/ pFriendID = new /*SteamUserID*/(pSteamFriends->GetFriendByIndex(friendIndex, k_EFriendFlagImmediate));
+					CSteamID pFriendID = new CSteamID (pSteamFriends->GetFriendByIndex(friendIndex, k_EFriendFlagImmediate));
 					CryUserID id(pFriendID);
 					CrySessionHandle sh = ((CCryMatchMaking*)pLobbyService->GetMatchMaking())->CreateGameSessionHandle(lsh, CryMatchMakingInvalidConnectionUID);
 					NetLog("[STEAM]: Sending invite to [%s]...", pSteamFriends->GetFriendPersonaName(pFriendID->m_steamID));
