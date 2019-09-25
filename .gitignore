@@ -9,8 +9,6 @@ log.*
 *.csproj
 *.log
 *.sln
-CMakeLists.*
-
 
 
 .git/*

@@ -9,6 +9,7 @@
 
 #pragma once 
 #include "StdAfx.h"
+#include <steam_api.h>
 //Identifier
 //! Simple opaque class used to store a service-specific identifier.
 template <typename Traits>
