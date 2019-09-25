@@ -125,6 +125,7 @@ cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionReques
 {
 }
 
+
 IServer::Identifier cSteamServer::GetIdentifier() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
