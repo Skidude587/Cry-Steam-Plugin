@@ -77,6 +77,7 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 		CRY_ASSERT("SteamNetworking not working!");
 	}
 }
+
 uint32 cSteamServer::GetPublicIP() const
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
@@ -105,6 +106,14 @@ const char* cSteamServer::GetPublicIPString() const
 }
 
 void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
+{
+	if (ISteamGameServer* pGameServer = SteamGameServer())
+	{
+		return pPortVar->GetIVal();
+	}
+}
+
+inline void cSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
