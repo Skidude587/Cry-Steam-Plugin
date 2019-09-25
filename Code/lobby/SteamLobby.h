@@ -19,8 +19,8 @@
 //structs
 struct UserID;
 typedef uint32 LobbyUserIndex;
-const LobbyUserIndex CryLobbyInvalidUserIndex = 0xffffffff;
-typedef uint32 CryLobbySendID;
+const LobbyUserIndex LobbyInvalidUserIndex = 0xffffffff;
+typedef uint32 LobbySendID;
 const UserID UserInvalidID = NULL;
 #define MAX_LOBBY_TASKS             10
 struct IMementoManagedThing
@@ -164,8 +164,8 @@ public:
 
 	virtual void              MakeAddrPCCompatible(TNetAddress& addr);
 	virtual void              OnPacket(const TNetAddress& addr, CCryLobbyPacket* pPacket) = 0;
-	virtual void              OnError(const TNetAddress& addr, ESocketError error, CryLobbySendID sendID) = 0;
-	virtual void              OnSendComplete(const TNetAddress& addr, CryLobbySendID sendID) = 0;
+	virtual void              OnError(const TNetAddress& addr, ESocketError error, LobbySendID sendID) = 0;
+	virtual void              OnSendComplete(const TNetAddress& addr, LobbySendID sendID) = 0;
 
 	virtual bool              IsDead() const { return false; };
 
@@ -396,8 +396,8 @@ public:
 	virtual ECryLobbyError GetSystemTime(uint32 user, SSystemTime* pSystemTime);
 
 	virtual void           OnPacket(const TNetAddress& addr, CCryLobbyPacket* pPacket);
-	virtual void           OnError(const TNetAddress& addr, ESocketError error, CryLobbySendID sendID);
-	virtual void           OnSendComplete(const TNetAddress& addr, CryLobbySendID sendID);
+	virtual void           OnError(const TNetAddress& addr, ESocketError error, LobbySendID sendID);
+	virtual void           OnSendComplete(const TNetAddress& addr, LobbySendID sendID);
 
 	virtual void           GetSocketPorts(uint16& connectPort, uint16& listenPort);
 
