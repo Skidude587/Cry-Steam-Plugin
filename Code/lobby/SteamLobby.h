@@ -21,7 +21,7 @@ struct UserID;
 typedef uint32 LobbyUserIndex;
 const LobbyUserIndex LobbyInvalidUserIndex = 0xffffffff;
 typedef uint32 LobbySendID;
-const UserID UserInvalidID = NULL;
+const UserID* UserInvalidID = nullptr;
 IEntity* m_obj;
 
 #define MAX_LOBBY_TASKS             10
