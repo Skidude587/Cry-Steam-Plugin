@@ -11,7 +11,7 @@
 #include "friends/SteamFriends.h"
 #include "server/SteamServer.h"
 #include <steam_api.h>
-#include <CryLobby/CommonICryLobby.h>
+
 
 CLobbyService::~CLobbyService()
 {
@@ -61,7 +61,7 @@ ECryLobbyError CLobbyService::GetUserPrivileges(uint32 user, CryLobbyTaskID * pT
 	ECryLobbyError error;
 	CryLobbyServiceTaskID tid;
 
-	/*LOBBY_AUTO_LOCK;
+	LOBBY_AUTO_LOCK;
 
 	error = StartTask(eT_GetUserPrivileges, user, false, &tid, pTaskID, (void*)pCB, pCBArg);
 
@@ -70,7 +70,7 @@ ECryLobbyError CLobbyService::GetUserPrivileges(uint32 user, CryLobbyTaskID * pT
 		FROM_GAME_TO_LOBBY(&CLobbyService::StartTaskRunning, this, tid);
 	}
 
-	return error;*/
+	return error;
 }
 
 void CLobbyService::MakeAddrPCCompatible(TNetAddress & addr)
