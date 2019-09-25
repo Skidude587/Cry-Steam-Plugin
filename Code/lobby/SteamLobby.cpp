@@ -31,7 +31,7 @@ static void SteamInviteToGame_DevelopmentOnly(IConsoleCmdArgs* pArgs)
 	if (argCount > 1)
 	{
 		uint32 argIndex = 1;
-		/*SteamLobbyService**/ /*LobbyService*/ = (/*SteamLobbyService**/)gEnv->pLobby->/*GetLobbyService(eCLS_Online)*/;
+		SteamLobbyService* CCryLobbyService = (SteamLobbyService*)gEnv->pLobby->/*GetLobbyService(eCLS_Online)*/;
 		CryLobbySessionHandle lsh = ((CCryMatchMaking*)pLobbyService->GetMatchMaking())->GetCurrentHostedNetNubSessionHandle();
 
 		if (lsh != CryLobbyInvalidSessionHandle)
@@ -73,7 +73,7 @@ CSteamLobbySystem::CSteamLobbySystem(CCryLobby* pLobby, ECryLobbyService service
 	gEnv->pConsole->UnregisterVariable("steam_invite_to_game", true);
 	gEnv->pConsole->UnregisterVariable("steam_show_friends", true);
 	gEnv->pConsole->UnregisterVariable("steam_show_overlay", true);
-#endif // !defined(RELEASE)
+#endif // (RELEASE)
 
 ECryLobbyError CSteamLobbySystem::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
 {
