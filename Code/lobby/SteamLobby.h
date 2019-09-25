@@ -17,6 +17,31 @@
 #include <CryLobby/CommonICryLobby.h>
 
 //structs
+class CLobbyCVars
+{
+public:
+	CLobbyCVars();
+	~CLobbyCVars();
+
+	static CLobbyCVars& Get() { return *m_pThis; }
+
+	float minMicrophonNotificationInterval;
+	float serverPingNotificationInterval;
+	int   showMatchMakingTasks;
+	int   fullStatusOnClient;
+	int   lobbyDefaultPort;
+#if USE_STEAM
+	int useSteamAsOnlineLobby;
+	int resetSteamAchievementsOnBoot;
+	int lobbySteamOnlinePort;
+#endif // USE_STEAM
+	static CLobbyCVars * m_pThis;
+}
+typedef void(*CryLobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
+#define TO_GAME_FROM_LOBBY(...) { CCryLobby* pLobby = static_cast<CCryLobby*>(CCryLobby::GetLobby()); pLobby->LockToGameMutex(); pLobby->GetToGameQueue()->Add(__VA_ARGS__); pLobby->UnlockToGameMutex(); }
+typedef CryLockT<CRYLOCK_RECURSIVE> CryLobbyMutex;
+#define LOBBY_AUTO_LOCK AUTO_LOCK_T(CryLobbyMutex, ((CCryLobby*)CCryLobby::GetLobby())->GetMutex())
+#define FROM_GAME_TO_LOBBY         static_cast<CCryLobby*>(CCryLobby::GetLobby())->GetFromGameQueue()->Add
 struct UserID;
 typedef uint32 LobbyUserIndex;
 const LobbyUserIndex LobbyInvalidUserIndex = 0xffffffff;
