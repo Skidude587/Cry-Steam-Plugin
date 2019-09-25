@@ -98,5 +98,4 @@ void SteamFriendsSystem::AddFriendsToMenu(CSteamID steamIDFriend)
 		CryLog(szFriendNameBuffer, "%s (%s)", szFriendNameBuffer, pszFriendNickname);
 	}
 
-	//AddMenuItem(CFriendsListMenu::MenuItem_t(szFriendNameBuffer, menuItemFriend));
 }
