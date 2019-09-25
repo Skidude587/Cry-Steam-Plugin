@@ -10,6 +10,8 @@
 #include "StdAfx.h"
 #include "SteamServer.h"
 #include <public/steam/steam_gameserver.h>
+#include <CryExtension/CryTypeID.h>
+#include <CrySerialization/CryStringsImpl.h>
 
 // Wrapper function to check if theres a packet ready to be read.
 bool cSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
@@ -75,64 +77,60 @@ void cSteamServer::OnP2PSessionConnectFail(P2PSessionConnectFail_t* pCallback)
 		CRY_ASSERT("SteamNetworking not working!");
 	}
 }
-	uint32 cSteamServer::GetPublicIP() const
+uint32 cSteamServer::GetPublicIP() const
+{
+	if (ISteamGameServer* pGameServer = SteamGameServer())
+		return pGameServer->GetPublicIP();
+
+	return 0;
+}
+
+const char* cSteamServer::GetPublicIPString() const
+{
+	uint32 publicIP = GetPublicIP();
+
+	const int NBYTES = 4;
+	uint8 octet[NBYTES];
+	char* ipAddressFinal = new char[15];
+	for (int i = 0; i < NBYTES; i++)
 	{
-		if (ISteamGameServer* pGameServer = SteamGameServer())
-			return pGameServer->GetPublicIP();
-
-		return 0;
-		const char* cSteamServer::GetPublicIPString() const
-		{
-			uint32 publicIP = GetPublicIP();
-
-			const int NBYTES = 4;
-			uint8 octet[NBYTES];
-			char* ipAddressFinal = new char[15];
-			for (int i = 0; i < NBYTES; i++)
-			{
-				octet[i] = publicIP >> (i * 8);
-			}
-			cry_sprintf(ipAddressFinal, NBYTES, "%d.%d.%d.%d", octet[3], octet[2], octet[1], octet[0]);
-
-			string sIP = string(ipAddressFinal);
-			delete[] ipAddressFinal;
-
-			return sIP;
-		};
-		void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
-		{
-			if (ISteamGameServer* pGameServer = SteamGameServer())
-			{
-				pGameServer->SendUserDisconnect(ExtractSteamID(userId));
-			}
-		};
-	};
-
-	IServer::Identifier cSteamServer::GetIdentifier() const
-	{
-		if (ISteamGameServer* pGameServer = SteamGameServer())
-			return pGameServer->GetSteamID().ConvertToUint64();
-
-		return 0;
-	};
-
-	uint32 cSteamServer::GetPublicIP() const
-	{
-		if (ISteamGameServer* pGameServer = SteamGameServer())
-			return pGameServer->GetPublicIP();
-
-		return 0;
-	};
-
-	uint16 cSteamServer::GetPort() const
-	{
-		ICVar* pPortVar = gEnv->pConsole->GetCVar("cl_serverport");
-
-		return pPortVar->GetIVal();
+		octet[i] = publicIP >> (i * 8);
 	}
-	cSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
+	cry_sprintf(ipAddressFinal, NBYTES, "%d.%d.%d.%d", octet[3], octet[2], octet[1], octet[0]);
+
+	string sIP = string(ipAddressFinal);
+	delete[] ipAddressFinal;
+
+	return sIP;
+}
+
+void cSteamServer::SendUserDisconnect(const AccountIdentifier& userId)
+{
+	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
+		pGameServer->SendUserDisconnect(ExtractSteamID(userId));
 	}
-	;
+}
 
+IServer::Identifier cSteamServer::GetIdentifier() const
+{
+	if (ISteamGameServer* pGameServer = SteamGameServer())
+		return pGameServer->GetSteamID().ConvertToUint64();
 
+	return 0;
+}
+
+uint32 cSteamServer::GetPublicIP() const
+{
+	if (ISteamGameServer* pGameServer = SteamGameServer())
+		return pGameServer->GetPublicIP();
+
+	return 0;
+}
+
+uint16 cSteamServer::GetPort() const
+{
+	ICVar* pPortVar = gEnv->pConsole->GetCVar("cl_serverport");
+
+	return pPortVar->GetIVal();
+}
