@@ -150,3 +150,50 @@ STEAM_CALLBACK(CSteamLobbySystem, OnPersonaStateChange, PersonaStateChange_t, m_
 	{
 	}
 //
+
+SteamLobbyService::SteamLobbyService(CCryLobby * pLobby, ECryLobbyService service)
+{
+}
+
+SteamLobbyService::~SteamLobbyService(void)
+{
+}
+
+ECryLobbyError SteamLobbyService::Initialise(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+{
+	return ECryLobbyError();
+}
+
+ECryLobbyError SteamLobbyService::Terminate(ECryLobbyServiceFeatures features, CryLobbyServiceCallback pCB)
+{
+	return ECryLobbyError();
+}
+
+void SteamLobbyService::Tick(CTimeValue tv)
+{
+}
+
+ECryLobbyError SteamLobbyService::GetSystemTime(uint32 user, SCrySystemTime * pSystemTime)
+{
+	return ECryLobbyError();
+}
+
+void SteamLobbyService::OnPacket(const TNetAddress & addr, CCryLobbyPacket * pPacket)
+{
+}
+
+void SteamLobbyService::OnError(const TNetAddress & addr, ESocketError error, CryLobbySendID sendID)
+{
+}
+
+void SteamLobbyService::OnSendComplete(const TNetAddress & addr, CryLobbySendID sendID)
+{
+}
+
+void SteamLobbyService::GetSocketPorts(uint16 & connectPort, uint16 & listenPort)
+{
+}
+
+void SteamLobbyService::InviteAccepted(uint32 user, CrySessionID id)
+{
+}
