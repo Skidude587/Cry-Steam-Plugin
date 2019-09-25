@@ -12,11 +12,11 @@
 
 #pragma once 
 #include "StdAfx.h"
-#include <CryLobby/CommonICryLobby.h>
+//#include <CryLobby/CommonICryLobby.h>
 #include "public/steam/steam_api.h"
 #include "public/steam/steam_gameserver.h"
 /*Von will create the include in cmake*/
-#include <../../CryPlugins/CryLobby/Module/CryLobby.h>
+#include "CryLobby.h"
 struct CryUserID;
 struct LobbyMenuItem_t
 {
