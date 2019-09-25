@@ -2,7 +2,7 @@
 // -------------------------------------------------------------------------
 //  File name:   SteamServer.h
 //  Created:     23/09/2019 by Joey Gonzalez, Jonathan Green
-//  Description: Class header for P2P sessions
+//  Description: Setup for P2P sessions and IServer
 // -------------------------------------------------------------------------
 //
 ////////////////////////////////////////////////////////////////////////////
