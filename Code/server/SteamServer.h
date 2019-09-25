@@ -9,40 +9,6 @@
 
 #pragma once 
 #include "StdAfx.h"
-
-//Account Identifier
-//! Identifies a game platform user on a specific service.
-using AccountIdentifier = Identifier<Detail::SAccountTraits>;
-
-//! Identifies a game platform lobby.
-using LobbyIdentifier = Identifier<Detail::SLobbyTraits>;
-
-//! Identifies a game or DLC.
-using ApplicationIdentifier = Identifier<Detail::SApplicationTraits>;
-
-//! Identifies a game platform user on a specific service.
-struct IServer
-{
-	// Unique identifier of the server
-	using Identifier = uint64;
-
-	virtual ~IServer() {}
-	//! Gets the server's unique identifier
-	virtual Identifier GetIdentifier() const = 0;
-	//! Gets the public IP address of the server according to the platform's network
-	virtual uint32 GetPublicIP() const = 0;
-	//! Gets the public IP address of the server according to the platform's network as a string
-	virtual const char* GetPublicIPString() const = 0;
-	//! Gets the port that clients should connect to
-	virtual uint16 GetPort() const = 0;
-	//! Checks whether or not the server expects clients to connect with the server's local IP (LAN)
-	virtual bool IsLocal() const = 0;
-	//! \returns True if the authentication was successful, otherwise false
-	virtual bool AuthenticateUser(uint32 clientIP, char* szAuthData, int authDataLength, AccountIdentifier& userId) = 0;
-	//! Should be called whenever a user leaves the game server, allowing the platform services to track what users are on which servers.
-	virtual void SendUserDisconnect(const AccountIdentifier& userId) = 0;
-};
-
 //Identifier
 //! Simple opaque class used to store a service-specific identifier.
 template <typename Traits>
@@ -117,6 +83,41 @@ private:
 	ServiceType m_svcId = CryGUID::Null();
 	ValueType m_value = Traits::Null();
 };
+
+//Account Identifier
+//! Identifies a game platform user on a specific service.
+using AccountIdentifier = Identifier<Detail::SAccountTraits>;
+
+//! Identifies a game platform lobby.
+using LobbyIdentifier = Identifier<Detail::SLobbyTraits>;
+
+//! Identifies a game or DLC.
+using ApplicationIdentifier = Identifier<Detail::SApplicationTraits>;
+
+//! Identifies a game platform user on a specific service.
+struct IServer
+{
+	// Unique identifier of the server
+	using Identifier = uint64;
+
+	virtual ~IServer() {}
+	//! Gets the server's unique identifier
+	virtual Identifier GetIdentifier() const = 0;
+	//! Gets the public IP address of the server according to the platform's network
+	virtual uint32 GetPublicIP() const = 0;
+	//! Gets the public IP address of the server according to the platform's network as a string
+	virtual const char* GetPublicIPString() const = 0;
+	//! Gets the port that clients should connect to
+	virtual uint16 GetPort() const = 0;
+	//! Checks whether or not the server expects clients to connect with the server's local IP (LAN)
+	virtual bool IsLocal() const = 0;
+	//! \returns True if the authentication was successful, otherwise false
+	virtual bool AuthenticateUser(uint32 clientIP, char* szAuthData, int authDataLength, AccountIdentifier& userId) = 0;
+	//! Should be called whenever a user leaves the game server, allowing the platform services to track what users are on which servers.
+	virtual void SendUserDisconnect(const AccountIdentifier& userId) = 0;
+};
+
+
 
 using ServiceIdentifier = CryGUID;
 
