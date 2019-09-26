@@ -16,6 +16,7 @@
 #include <steam_api.h>
 #include <steam_gameserver.h>
 #include <CryLobby/CommonICryLobby.h>
+#include "server/NetLog.h"
 
 //structs
 

@@ -11,7 +11,7 @@
 #include "friends/SteamFriends.h"
 #include "server/SteamServer.h"
 #include <steam_api.h>
-
+#include "server/NetLog.h"
 CLobbyService::~CLobbyService()
 {
 }
