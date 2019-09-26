@@ -39,6 +39,10 @@ void CSteamLobbySystemComponent::Initialize()
 {
 }
 
-void CSteamLobbySystemComponent::ProcessEvent(const SEntityEvent & event)
+Cry::Entity::EventFlags CSteamLobbySystemComponent::GetEventMask() const
 {
+	return
+		Cry::Entity::EEvent::BecomeLocalPlayer |
+		Cry::Entity::EEvent::Update |
+		Cry::Entity::EEvent::Reset;
 }
