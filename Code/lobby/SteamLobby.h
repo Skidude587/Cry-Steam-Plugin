@@ -8,15 +8,17 @@
 ////////////////////////////////////////////////////////////////////////////
 
 
-
+#if _MSC_VER > 1000
 
 #pragma once 
+#endif
 #include "StdAfx.h"
 #include <steam_api.h>
 #include <steam_gameserver.h>
 #include <CryLobby/CommonICryLobby.h>
 
 //structs
+
 class CLobbyCVars
 {
 public:
@@ -37,7 +39,7 @@ public:
 #endif // USE_STEAM
 	static CLobbyCVars * m_pThis;
 };
-
+#define USE_CRY_MATCHMAKING          1
 typedef void (*CryLobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
 #define TO_GAME_FROM_LOBBY(...) { CCryLobby* pLobby = static_cast<CCryLobby*>(CCryLobby::GetLobby()); pLobby->LockToGameMutex(); pLobby->GetToGameQueue()->Add(__VA_ARGS__); pLobby->UnlockToGameMutex(); }
 typedef CryLockT<CRYLOCK_RECURSIVE> CryLobbyMutex;
@@ -190,7 +192,8 @@ public:
 
 	virtual ECryLobbyError    Initialise(ECryLobbyServiceFeatures features, LobbyServiceCallback pCB);
 	virtual ECryLobbyError    Terminate(ECryLobbyServiceFeatures features, LobbyServiceCallback pCB);
-
+	virtual void              Tick(CTimeValue tv);
+	
 	virtual ICryTCPServicePtr GetTCPService(const char* pService);
 	virtual ICryTCPServicePtr GetTCPService(const char* pServer, uint16 port, const char* pUrlPrefix);
 	virtual ECryLobbyError    GetUserPrivileges(uint32 user, CryLobbyTaskID* pTaskID, LobbyPrivilegeCallback pCB, void* pCBArg);
@@ -255,6 +258,7 @@ protected:
 private:
 
 };
+
 class CMementoMemoryManager 
 {
 	friend class CMementoStreamAllocator;
@@ -413,6 +417,7 @@ private:
 	static TManagers* m_pManagers;
 #endif
 };
+
 class CSteamLobby : public CLobbyService
 {
 
@@ -453,6 +458,5 @@ private:
 	STEAM_CALLBACK(CSteamLobbySystem, OnLobbyDataUpdate, LobbyDataUpdate_t, m_CallbackLobbyDataUpdate);
 	STEAM_CALLBACK(CSteamLobbySystem, OnLobbyChatUpdate, LobbyChatUpdate_t, m_CallbackChatDataUpdate);
 };
-
 
 
