@@ -48,6 +48,10 @@
 // How many times a second do we send our updated client state to the server
 #define CLIENT_UPDATE_SEND_RATE 30
 
+#define MAX_PLAYERS_PER_SERVER 8
+
+class CSteamLobby;
+
 
 class CPlugin 
 	: public Cry::IEnginePlugin
@@ -74,7 +78,6 @@ public:
 	// Added network listener might not be needed depending on games 
 	//------------------------
 
-
 	// INetworkedClientListener
 	// Sent to the local client on disconnect
 	virtual void OnLocalClientDisconnected(EDisconnectionCause cause, const char* description) override {}
@@ -96,10 +99,10 @@ public:
 	virtual bool OnClientTimingOut(int channelId, EDisconnectionCause cause, const char* description) override { return true; }
 	// ~INetworkedClientListener
 
+	CSteamLobby* m_pCSteamLobby;
 
 protected:
 	// Map containing player components, key is the channel id received in OnClientConnectionReceived
 	std::unordered_map<int, EntityId> m_players;
-
 
 };

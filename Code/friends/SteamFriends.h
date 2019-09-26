@@ -48,7 +48,7 @@ public:
 
 protected:
 	/* This lets us add friends with tags, Tags could be Friends list or pending, look at enum EFriendFlags in isteamfriends.h file to get more of idea */
-	void AddFriends(int iFriendFlag, const char *pszName, std::vector<CSteamID> *pVecIgnoredSteamIds = NULL);
+	
 
 
 	/* this function could be use to added user's friends to a list/ in game menu. Need to think of better way to create this. */
