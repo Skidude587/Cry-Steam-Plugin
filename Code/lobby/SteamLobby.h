@@ -8,10 +8,8 @@
 ////////////////////////////////////////////////////////////////////////////
 
 
-#if _MSC_VER > 1000
-
 #pragma once 
-#endif
+
 #include "StdAfx.h"
 #include <steam_api.h>
 #include <steam_gameserver.h>
@@ -26,7 +24,7 @@
 
 
 
-class CSteamLobby 
+class CSteamLobby
 {
 
 	struct IUser* m_pUser;
@@ -35,7 +33,7 @@ public:
 	CSteamLobby() = default;
 	virtual ~CSteamLobby() {}
 
-	
+
 
 	////////////////////////////////////////////////////////
 	// Basic Lobby for Cryengine works for Steam / Online ( dedicated or hosted ) , LAN, PSN, and Xbox won't make more for it right now..
@@ -58,5 +56,7 @@ public:
 protected:
 
 	Cry::GamePlatform::IPlugin *m_pPlugin;
-	Cry::GamePlatform::ServiceIdentifier *m_pServices;
+	Cry::GamePlatform::IService *m_pISerivce;
+	Cry::GamePlatform::AccountIdentifier *m_pAccountID;
+};
 

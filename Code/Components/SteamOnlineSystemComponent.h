@@ -9,19 +9,21 @@
 #include "StdAfx.h"
 
 #include <steam_api.h>
+
+#include <array>
+#include <numeric>
+
 #include <CryEntitySystem/IEntityComponent.h>
 #include <CrySchematyc/Utils/EnumFlags.h>
 
 
 
-class CSteamLobbySystemComponent final : public IEntityComponent
+class CSteamLobbySystemComponent : public IEntityComponent
 {
-
-	
-
 public:
 	CSteamLobbySystemComponent() = default;
 	virtual ~CSteamLobbySystemComponent() {}
+
 
 	// IEntityComponent
 	void Initialize() override;
@@ -48,7 +50,7 @@ public:
 		desc.AddMember(&CSteamLobbySystemComponent::lobbySize, 'lbbz', "LobbySize", "Lobby Size", "Lobby Size", 0);
 
 		desc.AddMember(&CSteamLobbySystemComponent::SteamFriends, 'ustf', "SteamFriends", "Use Friends", "Use Friends", false);
-		
+
 	}
 
 	static CryGUID& IID()
@@ -64,10 +66,10 @@ public:
 	bool UseSteamFriends() { return SteamFriends = USING_STEAM_FRIENDS; }
 
 	/* Using Steam Server allow to use steam server instead of Cryengine server */
-	bool UseSteamServer() { return SteamServer = USING_STEAM_SERVER;  }
+	bool UseSteamServer() { return SteamServer = USING_STEAM_SERVER; }
 
 	/* Get lobby Name from User input */
-	string GetLobbyName() { return LobbyName = DefaultLobbyName; }
+	//string GetLobbyName() { return LobbyName = DefaultLobbyName; }
 
 	/* Allow to change lobby size - Might need to cap it */
 	int32 lobbySizeMax() { return lobbyDefaultSize = lobbySize; }
@@ -84,13 +86,12 @@ protected:
 	int32 serverIP = 0;
 
 	/* More custom opitions - needs a return = operator too tired to do...  */
-	string LobbyName = "";
-	string DefaultLobbyName = "";
+	//string LobbyName = "";
+	//string DefaultLobbyName = "";
 
 	/* Default Component   */
 	bool UseSteam = false;
 	bool SteamFriends = false;
 	bool SteamServer = false;
-
 };
 

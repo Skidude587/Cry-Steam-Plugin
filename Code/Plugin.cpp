@@ -19,6 +19,7 @@
 #include <PlatformTypes.h>
 #include <PlatformIdentifier.h>
 #include <IPlatformService.h>
+
 #include <CrySchematyc/Env/IEnvRegistry.h>
 #include <CrySchematyc/Env/EnvPackage.h>
 #include <CrySchematyc/Utils/SharedString.h>
@@ -118,76 +119,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		
 #pragma comment(lib, "steam_api64.lib")
 		
-		/* Might need to move this function somewhere else */
-		m_pCSteamLobby->GetLocalClient();
-		// Shutdown the SteamAPI - needed 
-		SteamAPI_Shutdown();
-#endif // USING_STEAM
-
-
-		/* Change back to release after testing... */
-#if (PROFILE)
-		//Steam Friend service
-		static void SteamShowFriends_DevelopmentOnly(IConsoleCmdArgs* pArgs);
-		{
-			ISteamFriends* pSteamFriends = SteamFriends();
-			if (!pSteamFriends)
-			{
-				/*Warning*/CRY_ASSERT(VALIDATOR_MODULE_SYSTEM, VALIDATOR_WARNING, "Steam friends service not available or working, check log");
-				return;
-			}
-			uint32 friendCount = pSteamFriends->GetFriendCount(k_EFriendFlagImmediate);
-			/*log*/CryLog("[STEAM]: Friends list (%d friends):", friendCount);
-			for (uint32 index = 0; index < friendCount; ++index)
-			{
-				CSteamID friendID = pSteamFriends->GetFriendByIndex(index, k_EFriendFlagImmediate);
-				/*Need to creating logging*/
-			}
-		}
-		//
-
-		//Steam overlay
-		static void SteamShowOverlay_DevelopmentOnly(IConsoleCmdArgs* pArgs);
-		{
-			ISteamUtils* pSteamUtils = SteamUtils();
-			ISteamFriends* pSteamFriends = SteamFriends();
-			if (!pSteamUtils || !pSteamFriends)
-			{
-				/*Warning*/CRY_ASSERT(VALIDATOR_MODULE_SYSTEM, VALIDATOR_WARNING, "Overlay cannot be shown; Steam is not initialized");
-				return;
-			}
-
-
-			const char* overlay[] = { "Friends", "Community", "Players", "Settings", "OfficialGameGroup", "Stats", "Achievements", "LobbyInvite" };
-			uint32 numOverlays = sizeof(overlay) / sizeof(char*);
-			uint32 requestedOverlay = 0;
-
-			if (pArgs->GetArgCount() > 1)
-			{
-				requestedOverlay = atoi(pArgs->GetArg(1));
-				if ((requestedOverlay < 0) || (requestedOverlay > numOverlays))
-				{
-					/*Log*/CryLog("Illegal overlay index specified [%d]:", requestedOverlay);
-					for (uint32 index = 0; index < numOverlays; ++index)
-					{
-						/*Log*/CryLog("  [%d] %s", index, overlay[index]);
-					}
-					return;
-				}
-			}
-
-			if (pSteamUtils->IsOverlayEnabled() == false)
-			{
-				/*Log*/CryLog("[STEAM]: Attempting to show [%s] overlay", overlay[requestedOverlay]);
-				pSteamFriends->ActivateGameOverlay(overlay[requestedOverlay]);
-			}
-			else
-			{
-				/*Log*/CryLog("[STEAM]: overlay already displayed");
-			}
-		}
-	#endif
-
+#endif
 
 	}
 	break;

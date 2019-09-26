@@ -9,7 +9,6 @@
 #include "StdAfx.h"
 
 #include "SteamOnlineSystemComponent.h"
-#include "Plugin.h"
 
 #include <CrySchematyc/Reflection/TypeDesc.h>
 #include <CrySchematyc/Utils/EnumFlags.h>
@@ -23,35 +22,23 @@
 #include <CrySchematyc/Utils/SharedString.h>
 #include <CryCore/StaticInstanceList.h>
 
-#include "lobby/SteamLobby.h"
-#include "friends/SteamFriends.h"
-#include "server/SteamServer.h"
-
-
-static void RegisterSteamLobbySystemComponent(Schematyc::IEnvRegistrar& registrar)
+namespace
 {
-	Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
+	static void RegisterSteamLobbySystemComponent(Schematyc::IEnvRegistrar& registrar)
 	{
-		Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CSteamLobbySystemComponent));
+		Schematyc::CEnvRegistrationScope scope = registrar.Scope(IEntity::GetEntityScopeGUID());
+		{
+			Schematyc::CEnvRegistrationScope componentScope = scope.Register(SCHEMATYC_MAKE_ENV_COMPONENT(CSteamLobbySystemComponent));
+		}
 	}
+
+	CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterSteamLobbySystemComponent);
 }
-
-CRY_STATIC_AUTO_REGISTER_FUNCTION(&RegisterSteamLobbySystemComponent);
-
 
 void CSteamLobbySystemComponent::Initialize()
 {
-	if (!UsingSteam())
-		return;
-	
-	CryLog("Starting Steam Component System.....");
-
-
-	
 }
-
 
 void CSteamLobbySystemComponent::ProcessEvent(const SEntityEvent & event)
 {
 }
-

@@ -5,9 +5,11 @@
 #include <CryCore/Project/CryModuleDefs.h>
 #define eCryModule eCryM_EnginePlugin
 #define GAME_API   DLL_EXPORT
-#define USING_STEAM 1
-#define USING_STEAM_FRIENDS 1
-#define USING_STEAM_SERVER 1
+
+/* These values will change depending on user settings from editor by default it's off */
+#define USING_STEAM 0
+#define USING_STEAM_FRIENDS 0
+#define USING_STEAM_SERVER 0
 
 #include <CryCore/Platform/platform.h>
 #include <CrySystem/ISystem.h>
