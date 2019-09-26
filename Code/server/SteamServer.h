@@ -79,7 +79,7 @@
 //
 //	const char* ToDebugString() const
 //	{
-//		return Traits::ToDebugString(m_svcId, m_value);
+//		//return Traits::ToDebugString(m_svcId, m_value);
 //	}
 //
 //private:
