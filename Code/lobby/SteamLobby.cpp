@@ -12,6 +12,7 @@
 #include "server/SteamServer.h"
 #include <steam_api.h>
 #include "server/NetLog.h"
+
 CLobbyService::~CLobbyService()
 {
 }
@@ -30,7 +31,6 @@ ECryLobbyError CLobbyService::Initialise(ECryLobbyServiceFeatures features, Lobb
 
 	return eCLE_Success;
 }
-
 
 ECryLobbyError CLobbyService::Terminate(ECryLobbyServiceFeatures features, LobbyServiceCallback pCB)
 {
@@ -121,7 +121,6 @@ void CLobbyService::FreeSocketNT(void)
 	m_pLobby->InternalSocketFree(m_service);
 }
 
-
 ECryLobbyError CLobbyService::StartTask(uint32 eTask, uint32 user, bool startRunning, CryLobbyServiceTaskID * pLSTaskID, CryLobbyTaskID * pLTaskID, void * pCb, void * pCbArg)
 {
 	CryLobbyTaskID lobbyTaskID = m_pLobby->CreateTask();
@@ -187,7 +186,6 @@ void CLobbyService::FreeTask(CryLobbyServiceTaskID lsTaskID)
 	pTask->used = false;
 }
 
-
 void CLobbyService::UpdateTaskError(CryLobbyServiceTaskID lsTaskID, ECryLobbyError error)
 {
 	STask* pTask = GetTask(lsTaskID);
@@ -228,6 +226,7 @@ void CLobbyService::StopTaskRunning(CryLobbyServiceTaskID lsTaskID)
 		TO_GAME_FROM_LOBBY(&CLobbyService::EndTask, this, lsTaskID);
 	}
 }
+
 void CLobbyService::EndTask(CryLobbyServiceTaskID lsTaskID)
 {
 	LOBBY_AUTO_LOCK;
@@ -304,7 +303,6 @@ void CMementoMemoryManager::FreePtr(void * p, size_t sz)
 {
 }
 
-
 void CMementoMemoryManager::ResizeHdl(Hdl hdl, size_t sz)
 {
 }
@@ -348,7 +346,6 @@ void CMementoMemoryManager::CMementoMemoryManagerAllocator::RemoveCMementoMemory
 void CMementoMemoryManager::CMementoMemoryManagerAllocator::Tick()
 {
 }
-
 
 void CMementoMemoryManager::CMementoMemoryManagerAllocator::FreeHdl(Hdl hdl)
 {

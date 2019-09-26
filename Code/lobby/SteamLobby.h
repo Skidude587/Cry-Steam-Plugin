@@ -7,11 +7,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-
 #if _MSC_VER > 1000
 
 #pragma once 
 #endif
+
 #include "StdAfx.h"
 #include <steam_api.h>
 #include <steam_gameserver.h>
@@ -40,12 +40,18 @@ public:
 #endif // USE_STEAM
 	static CLobbyCVars * m_pThis;
 };
+
 #define USE_CRY_MATCHMAKING          1
+
 typedef void (*CryLobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
+
 #define TO_GAME_FROM_LOBBY(...) { CCryLobby* pLobby = static_cast<CCryLobby*>(CCryLobby::GetLobby()); pLobby->LockToGameMutex(); pLobby->GetToGameQueue()->Add(__VA_ARGS__); pLobby->UnlockToGameMutex(); }
+
 typedef CryLockT<CRYLOCK_RECURSIVE> CryLobbyMutex;
+
 #define LOBBY_AUTO_LOCK AUTO_LOCK_T(CryLobbyMutex, ((CCryLobby*)CCryLobby::GetLobby())->GetMutex())
 #define FROM_GAME_TO_LOBBY         static_cast<CCryLobby*>(CCryLobby::GetLobby())->GetFromGameQueue()->Add
+
 struct UserID
 {
 	IEntity* m_obj;
@@ -62,13 +68,14 @@ typedef uint32 LobbyUserIndex;
 const LobbyUserIndex LobbyInvalidUserIndex = 0xffffffff;
 typedef uint32 LobbySendID;
 
-
 #define MAX_LOBBY_TASKS             10
+
 struct IMementoManagedThing
 {
 	virtual ~IMementoManagedThing() {}
 	virtual void Release() = 0;
 };
+
 struct LobbyMenuItem_t
 {
 	/* Probably need to change this wording for enum.... */
@@ -85,14 +92,15 @@ struct LobbyMenuItem_t
 	ELobbyMenuCommand m_eCommand;
 	CSteamID m_steamIDLobby;	// set if k_ELobbyMenuItemInviteToLobby	
 };
+
 #define MAX_LOBBY_TASK_DATAS        10
+
 // an item in the list of lobbies we've found to display
 struct Lobby_t
 {
 	CSteamID m_steamIDLobby;
 	char m_rgchName[256];
 };
-
 
 struct SSystemTime
 {
@@ -105,11 +113,13 @@ struct SSystemTime
 	uint8  m_Minute;
 	uint8  m_Second;
 };
+
 enum ECryTCPServiceResult
 {
 	eCTCPSR_Ok,       //!< No errors in sending data to external site.
 	eCTCPSR_Failed    //!< Some sort of error occurred (likely to be a fail in the socket send).
 };
+
 enum ECryTCPServiceConnectionStatus
 {
 	eCTCPSCS_Pending,
@@ -119,8 +129,11 @@ enum ECryTCPServiceConnectionStatus
 	eCTCPSCS_NotConnectedDNSFailed,
 	eCTCPSCS_NotConnectedConnectionFailed
 };
+
 struct STCPServiceData;
+
 typedef _smart_ptr<STCPServiceData> STCPServiceDataPtr;
+
 struct ICryTCPService
 {
 	// <interfuscator:shuffle>
@@ -175,17 +188,27 @@ struct ICryTCPService
 	virtual const char* GetURLPrefix() = 0;
 	// </interfuscator:shuffle>
 };
-typedef CMementoMemoryManager::Hdl TMemHdl;
-const TMemHdl TMemInvalidHdl = CMementoMemoryManager::InvalidHdl;
-class CCryLobby;
-typedef void(*LobbyServiceCallback)(ECryLobbyError error, CCryLobby* arg, ECryLobbyService service);
-typedef void(*LobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
-typedef void(*LobbyCheckProfanityCallback)(CryLobbyTaskID taskID, ECryLobbyError error, const char* pString, bool isProfanity, void* pArg);
-typedef uint32 CryLobbyServiceTaskID;
-const CryLobbyServiceTaskID CryLobbyServiceInvalidTaskID = 0xffffffff;
-typedef _smart_ptr<ICryTCPService> ICryTCPServicePtr;
-// classes
 
+typedef CMementoMemoryManager::Hdl TMemHdl;
+
+const TMemHdl TMemInvalidHdl = CMementoMemoryManager::InvalidHdl;
+
+//class CCryLobby;
+
+
+typedef void(*LobbyServiceCallback)(ECryLobbyError error, CCryLobby* arg, ECryLobbyService service);
+
+typedef void(*LobbyPrivilegeCallback)(CryLobbyTaskID taskID, ECryLobbyError error, uint32 privilege, void* pArg);
+
+typedef void(*LobbyCheckProfanityCallback)(CryLobbyTaskID taskID, ECryLobbyError error, const char* pString, bool isProfanity, void* pArg);
+
+typedef uint32 CryLobbyServiceTaskID;
+
+const CryLobbyServiceTaskID CryLobbyServiceInvalidTaskID = 0xffffffff;
+
+typedef _smart_ptr<ICryTCPService> ICryTCPServicePtr;
+
+// classes
 class CLobbyService : public CMultiThreadRefCount
 {
 public:
