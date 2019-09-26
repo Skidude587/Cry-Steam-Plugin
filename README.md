@@ -1,6 +1,6 @@
 # CrySteamPlugin
 A plugin to replace CryGamePlatformSteam.
-Join our Discord Server: &nbsp; <a href="https://discord.gg/f3TsfvD"><img src="https://discordapp.com/api/guilds/577993482761928734/widget.png?style=shield"></img></a>
+Join our Discord Server: &nbsp; <a href="https://discord.gg/UkRU4vG"><img src="https://discordapp.com/api/guilds/577993482761928734/widget.png?style=shield"></img></a>
 ## What it does
 This plugin is a replacement for the currently broken CryGamePlatformSteam. It calls up the Steam API and initiates it.
 
