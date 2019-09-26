@@ -415,8 +415,11 @@ public:
 	}
 	virtual void SendUserDisconnect(const AccountIdentifier& userId) /*override*/;
 public:
-	STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t);
-	STEAM_CALLBACK(cSteamServer, OnP2PSessionConnectFail, P2PSessionConnectFail_t);
+
+	STEAM_CALLBACK(CSteamServer, OnP2PSessionRequest, P2PSessionRequest_t);
+
+	STEAM_CALLBACK(CSteamServer, OnP2PSessionConnectFail, P2PSessionConnectFail_t);
+
 protected:
 		bool m_bLocal;
 };
