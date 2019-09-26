@@ -60,7 +60,7 @@ public:
 	}
 
 	/* Using Steam or Not */
-	bool UsingSteam() { return SteamID = USING_STEAM; }
+	bool UsingSteam() { return UseSteam = USING_STEAM; }
 
 	/* Using Steam Friends or not */
 	bool UseSteamFriends() { return SteamFriends = USING_STEAM_FRIENDS; }
@@ -74,11 +74,16 @@ public:
 	/* Allow to change lobby size - Might need to cap it */
 	int32 lobbySizeMax() { return lobbyDefaultSize = lobbySize; }
 
+	/* Get SteamID */
+	int32 GetSteamGameID() { return GameID = SteamID; }
+
 
 
 protected:
 
 	int32 SteamID = 0;
+	int32 GameID = 0;
+
 	int32 lobbyDefaultSize = 0;
 	int32 lobbySize = 0;
 	/* These valus might need changing */

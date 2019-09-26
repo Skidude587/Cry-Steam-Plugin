@@ -79,10 +79,14 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		// Listen for client connection events, in order to create the local player
 		gEnv->pGameFramework->AddNetworkedClientListener(*this);
 
+		
+
 #if USING_STEAM == 1
+		/* Lets grab the SteamID */
+		CSteamLobbySystemComponent *m_pSteamLobbySystem;
 		
 		/* Using this process allows Steam to start as needed. All successful :D - Von */
-		if (!SteamAPI_RestartAppIfNecessary(480))
+		if (!SteamAPI_RestartAppIfNecessary(m_pSteamLobbySystem->GetSteamGameID()))
 		{
 			// if Steam is not running or the game wasn't started through Steam, SteamAPI_RestartAppIfNecessary starts the 
 			// local Steam client and also launches this game again.
