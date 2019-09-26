@@ -72,23 +72,23 @@ public:
 	//string GetLobbyName() { return LobbyName = DefaultLobbyName; }
 
 	/* Allow to change lobby size - Might need to cap it */
-	int32 lobbySizeMax() { return lobbyDefaultSize = lobbySize; }
+	int lobbySizeMax() { return lobbyDefaultSize = lobbySize; }
 
 	/* Get SteamID */
-	int32 GetSteamGameID() { return GameID = SteamID; }
+	int GetSteamGameID() { return GameID = SteamID; }
 
 
 
 protected:
 
-	int32 SteamID = 0;
-	int32 GameID = 0;
+	int SteamID = 0;
+	int GameID = 0;
 
-	int32 lobbyDefaultSize = 0;
-	int32 lobbySize = 0;
+	int lobbyDefaultSize = 0;
+	int lobbySize = 0;
 	/* These valus might need changing */
-	int32 serverport = 0;
-	int32 serverIP = 0;
+	int serverport = 0;
+	int serverIP = 0;
 
 	/* More custom opitions - needs a return = operator too tired to do...  */
 	//string LobbyName = "";
