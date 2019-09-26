@@ -5,14 +5,29 @@
 #include <CryCore/Project/CryModuleDefs.h>
 #define eCryModule eCryM_EnginePlugin
 #define GAME_API   DLL_EXPORT
-#define USING_STEAM 1
+
+/* These values will change depending on user settings from editor by default it's off */
+#define USING_STEAM 0
+#define USING_STEAM_FRIENDS 0
+#define USING_STEAM_SERVER 0
 
 #include <CryCore/Platform/platform.h>
 #include <CrySystem/ISystem.h>
 #include <Cry3DEngine/I3DEngine.h>
 #include <CryNetwork/ISerialize.h>
 
-
+//////////////////////////////////////////////////////////////////////////
+//! Reports a Game Warning to validator with WARNING severity.
+inline void GameWarning(const char *format, ...) PRINTF_PARAMS(1, 2);
+inline void GameWarning(const char *format, ...)
+{
+	if (!format)
+		return;
+	va_list args;
+	va_start(args, format);
+	GetISystem()->WarningV(VALIDATOR_MODULE_GAME, VALIDATOR_WARNING, 0, NULL, format, args);
+	va_end(args);
+}
 
 #ifdef STEAM_CEG
 // Steam DRM header file

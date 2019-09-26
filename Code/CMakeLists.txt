@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 3.14)
-set(CRYENGINE_DIR "C:/Users/jonat/Desktop/Cryengine/Engines/Crytek/CRYENGINE_5.6" CACHE STRING "CRYENGINE root directory.")
+set(CRYENGINE_DIR "G:/Program Files (x86)/Crytek/CRYENGINE Launcher/Crytek/CRYENGINE_5.6" CACHE STRING "CRYENGINE root directory.")
 set(TOOLS_CMAKE_DIR "${CRYENGINE_DIR}/Tools/CMake")
 
 set(PROJECT_BUILD 1)
@@ -50,7 +50,6 @@ add_sources("server_uber.cpp"
     PROJECTS Plugin
     SOURCE_GROUP "server"
 		"server/SteamServer.cpp"
-		"server/NetLog.h"
 		"server/SteamServer.h"
 )
 
@@ -133,26 +132,26 @@ if(OPTION_ENGINE)
         add_library(Editor STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
         set_target_properties(Editor PROPERTIES LINKER_LANGUAGE CXX)
         if (WIN32)
-            set_visual_studio_debugger_command(Editor "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"${PROJECT_DIR}Plugin.cryproject\"")
+            set_visual_studio_debugger_command(Editor "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"${PROJECT_DIR}/Plugin.cryproject\"")
         endif()
     endif()
 else()
     add_library(GameLauncher STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
     set_target_properties(GameLauncher PROPERTIES LINKER_LANGUAGE CXX)
     if (WIN32)
-        set_visual_studio_debugger_command(GameLauncher "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"${PROJECT_DIR}Plugin.cryproject\"")
+        set_visual_studio_debugger_command(GameLauncher "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"${PROJECT_DIR}/Plugin.cryproject\"")
     endif()
 
     add_library(Editor STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
     set_target_properties(Editor PROPERTIES LINKER_LANGUAGE CXX)
     if (WIN32)
-        set_visual_studio_debugger_command(Editor "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"${PROJECT_DIR}Plugin.cryproject\"")
+        set_visual_studio_debugger_command(Editor "${CRYENGINE_DIR}/bin/win_x64/Sandbox.exe" "-project \"${PROJECT_DIR}/Plugin.cryproject\"")
     endif()
 
     add_library(GameServer STATIC "${CRYENGINE_DIR}/Code/CryEngine/CryCommon/CryCore/Platform/platform.h")
     set_target_properties(GameServer PROPERTIES LINKER_LANGUAGE CXX)
     if (WIN32)
-        set_visual_studio_debugger_command(GameServer "${CRYENGINE_DIR}/bin/win_x64/Game_Server.exe" "-project \"${PROJECT_DIR}Plugin.cryproject\"")
+        set_visual_studio_debugger_command(GameServer "${CRYENGINE_DIR}/bin/win_x64/Game_Server.exe" "-project \"${PROJECT_DIR}/Plugin.cryproject\"")
     endif()
 endif()
 
@@ -160,40 +159,40 @@ endif()
 set_solution_startup_target(GameLauncher)
 
 if (WIN32)
-    set_visual_studio_debugger_command( ${THIS_PROJECT} "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"${PROJECT_DIR}Plugin.cryproject\"" )
+    set_visual_studio_debugger_command( ${THIS_PROJECT} "${CRYENGINE_DIR}/bin/win_x64/GameLauncher.exe" "-project \"${PROJECT_DIR}/Plugin.cryproject\"" )
 endif()
 
 #BEGIN-CUSTOM
 # Make any custom changes here, modifications outside of the block will be discarded on regeneration.
 get_filename_component(BASE_PATH ${THIS_PROJECT}/../../../../ REALPATH)
 
-add_library(steam_codegen STATIC "${CMAKE_SOURCE_DIR}/../sdk/public/steam/")
-set_target_properties(steam_codegen PROPERTIES LINKER_LANGUAGE CXX)
+add_library(steam_api64 STATIC "${CMAKE_SOURCE_DIR}/../sdk/public/steam/")
+set_target_properties(steam_api64 PROPERTIES LINKER_LANGUAGE CXX)
 
 if (CMAKE_CL_64 AND WIN32)
     if(_PROFILE)
         target_include_directories(${THIS_PROJECT} PRIVATE ../sdk/public/steam/lib/win32/include)
-        target_include_directories(steam_codegen PRIVATE ../sdk/public/steam/lib/win32/include)
+        target_include_directories(steam_api64 PRIVATE ../sdk/public/steam/lib/win32/include)
 		file(GLOB_RECURSE LIB_LIST "../sdk/public/steam/lib/*.lib")
     else()
         target_include_directories(${THIS_PROJECT} PRIVATE ../sdk/public/steam/lib/win64/include)
-        target_include_directories(steam_codegen PRIVATE ../sdk/public/steam/lib/win64/include)
+        target_include_directories(steam_api64 PRIVATE ../sdk/public/steam/lib/win64/include)
 		file(GLOB_RECURSE LIB_LIST "../sdk/public/steam/lib/*.lib")
 	endif()
-	target_compile_options(steam_codegen PRIVATE "/EHsc")
+	target_compile_options(steam_api64 PRIVATE "/EHsc")
 endif()
 
 file(GLOB_RECURSE STEAM_CODEGEN_FILES_STD ${THIS_PROJECT}/public/steam/*.cpp ${THIS_PROJECT}/public/steam/*.h)
 
 target_include_directories(${THIS_PROJECT} PRIVATE ${THIS_PROJECT}/public/steam/ )
-target_include_directories(steam_codegen PRIVATE ${THIS_PROJECT}/public/steam/ )
-target_sources(steam_codegen PRIVATE ${STEAM_CODEGEN_FILES_STD} )
-target_link_libraries(steam_codegen PRIVATE ${LIB_LIST})
+target_include_directories(steam_api64 PRIVATE ${THIS_PROJECT}/public/steam/ )
+target_sources(steam_api64 PRIVATE ${STEAM_CODEGEN_FILES_STD} )
+target_link_libraries(steam_api64 PRIVATE ${LIB_LIST})
 
-add_dependencies(${THIS_PROJECT} steam_codegen)
+add_dependencies(${THIS_PROJECT} steam_api64)
 
 
-target_link_libraries(${THIS_PROJECT} PRIVATE steam_codegen ${LIB_LIST})
+target_link_libraries(${THIS_PROJECT} PRIVATE steam_api64 ${LIB_LIST})
 
 target_sources(${THIS_PROJECT} 
 	PRIVATE
@@ -249,4 +248,11 @@ target_sources(${THIS_PROJECT}
 target_include_directories(${THIS_PROJECT}
 	PRIVATE
 	"${CMAKE_SOURCE_DIR}/../sdk/public/steam")
+	
+	target_include_directories(${THIS_PROJECT}
+PRIVATE
+    "${CRYENGINE_DIR}/Code/CryPlugins/CryGamePlatform/Module"
+    "${CRYENGINE_DIR}/Code/CryPlugins/CryGamePlatform/Interface"
+)
+
 #END-CUSTOM
