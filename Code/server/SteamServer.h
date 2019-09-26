@@ -12,10 +12,98 @@
 #include <steam_api.h>
 #include <steamclientpublic.h>
 
-//Identifier
+////Identifier
+////! Simple opaque class used to store a service-specific identifier.
+//template <typename Traits>
+//
+//class Identifier
+//{
+//	using ValueType = typename Traits::ValueType;
+//	using ServiceType = typename Traits::ServiceType;
+//public:
+//	Identifier(const ServiceType& svcId, const ValueType& accountId)
+//		: m_svcId(svcId)
+//		, m_value(accountId)
+//	{
+//	}
+//	inline AccountIdentifier     CreateAccountIdentifier(AccountIdentifierValue rawSteamId) { return AccountIdentifier(SteamServiceID, rawSteamId); }
+//	inline LobbyIdentifier       CreateLobbyIdentifier(LobbyIdentifierValue rawSteamId) { return LobbyIdentifier(SteamServiceID, rawSteamId); }
+//	inline ApplicationIdentifier CreateApplicationIdentifier(ApplicationIdentifierValue rawSteamId) { return ApplicationIdentifier(SteamServiceID, rawSteamId); }
+//
+//	inline AccountIdentifier     CreateAccountIdentifier(const CSteamID& steamId) { return CreateAccountIdentifier(steamId.ConvertToUint64()); }
+//	inline LobbyIdentifier       CreateLobbyIdentifier(const CSteamID& steamId) { return CreateLobbyIdentifier(steamId.ConvertToUint64()); }
+//
+//	Identifier() = default;
+//
+//	Identifier(const Identifier&) = default;
+//	Identifier(Identifier&&) = default;
+//
+//	Identifier& operator=(const Identifier&) = default;
+//	Identifier& operator=(Identifier&&) = default;
+//
+//	const ServiceType& Service() const { return m_svcId; }
+//
+//	bool operator==(const Identifier& other) const { return std::tie(m_svcId, m_value) == std::tie(other.m_svcId, other.m_value); }
+//	bool operator!=(const Identifier& other) const { return std::tie(m_svcId, m_value) != std::tie(other.m_svcId, other.m_value); }
+//	bool operator<(const Identifier& other) const { return std::tie(m_svcId, m_value) < std::tie(other.m_svcId, other.m_value); }
+//
+//	bool GetAsUint64(uint64& out) const
+//	{
+//		const bool success = Traits::AsUint64(m_value, out);
+//		if (!success)
+//		{
+//			CryWarning(VALIDATOR_MODULE_SYSTEM, VALIDATOR_COMMENT, "[GamePlatform] %s: Unable to convert '%s'.", __func__, ToDebugString());
+//		}
+//
+//		return success;
+//	}
+//
+//	template<class StrType>
+//	bool GetAsString(StrType& out) const
+//	{
+//		const bool success = Traits::AsString(m_value, out);
+//		if (!success)
+//		{
+//			CryWarning(VALIDATOR_MODULE_SYSTEM, VALIDATOR_COMMENT, "[GamePlatform] %s: Unable to convert '%s'.", __func__, ToDebugString());
+//		}
+//
+//		return success;
+//	}
+//
+//	void Serialize(Serialization::IArchive& ar)
+//	{
+//		ar(m_svcId, "service");
+//
+//		return Traits::Serialize(m_value, ar);
+//	}
+//
+//	const char* ToDebugString() const
+//	{
+//		return Traits::ToDebugString(m_svcId, m_value);
+//	}
+//
+//private:
+//	ServiceType m_svcId = CryGUID::Null();
+//	ValueType m_value = Traits::Null();
+//};
+//
+////Account Identifier
+////! Identifies a game platform user on a specific service.
+//using AccountIdentifier = Identifier<SAccountTraits>;
+//
+////! Identifies a game platform lobby.
+//using LobbyIdentifier = Identifier<SLobbyTraits>;
+//
+////! Identifies a game or DLC.
+//using ApplicationIdentifier = Identifier<SApplicationTraits>;
+//
+
+// Forward declarations
+template <typename Traits>
+class Identifier;
+
 //! Simple opaque class used to store a service-specific identifier.
 template <typename Traits>
-
 class Identifier
 {
 	using ValueType = typename Traits::ValueType;
@@ -26,12 +114,6 @@ public:
 		, m_value(accountId)
 	{
 	}
-	inline AccountIdentifier     CreateAccountIdentifier(AccountIdentifierValue rawSteamId) { return AccountIdentifier(SteamServiceID, rawSteamId); }
-	inline LobbyIdentifier       CreateLobbyIdentifier(LobbyIdentifierValue rawSteamId) { return LobbyIdentifier(SteamServiceID, rawSteamId); }
-	inline ApplicationIdentifier CreateApplicationIdentifier(ApplicationIdentifierValue rawSteamId) { return ApplicationIdentifier(SteamServiceID, rawSteamId); }
-
-	inline AccountIdentifier     CreateAccountIdentifier(const CSteamID& steamId) { return CreateAccountIdentifier(steamId.ConvertToUint64()); }
-	inline LobbyIdentifier       CreateLobbyIdentifier(const CSteamID& steamId) { return CreateLobbyIdentifier(steamId.ConvertToUint64()); }
 
 	Identifier() = default;
 
@@ -87,7 +169,160 @@ private:
 	ValueType m_value = Traits::Null();
 };
 
-//Account Identifier
+using NumericIdentifierValue = uint64;
+using StringIdentifierValue = CryFixedStringT<48>;
+
+struct STraitsBase
+{
+	using ServiceType = ServiceIdentifier;
+	// Note: When adding types here make sure you update the code using stl::holds_alternative
+	// and stl::get
+	using ValueType = CryVariant<StringIdentifierValue, NumericIdentifierValue>;
+
+	static ValueType Null()
+	{
+		return NumericIdentifierValue(0);
+	}
+
+	static const char* ToDebugString(const ServiceIdentifier& svcId, const char* szIdKind, const ValueType& value)
+	{
+		static stack_string debugStr;
+
+		if (stl::holds_alternative<StringIdentifierValue>(value))
+		{
+			debugStr.Format("%s%s:%s", GetServiceDebugName(svcId), szIdKind, stl::get<StringIdentifierValue>(value).c_str());
+		}
+		else if (stl::holds_alternative<NumericIdentifierValue>(value))
+		{
+			debugStr.Format("%s%s:%" PRIu64, GetServiceDebugName(svcId), szIdKind, stl::get<NumericIdentifierValue>(value));
+		}
+		else
+		{
+			return debugStr.Format("%s%s:?", GetServiceDebugName(svcId), szIdKind);
+		}
+
+		return debugStr.c_str();
+	}
+
+	static bool AsUint64(const ValueType& value, uint64& out)
+	{
+		if (stl::holds_alternative<StringIdentifierValue>(value))
+		{
+			char trailing; // attempt to parse trailing characters as we don't want them.
+			const StringIdentifierValue& str = stl::get<StringIdentifierValue>(value);
+			const int ok = sscanf_s(str.c_str(), "%" PRIu64 "%c", &out, &trailing);
+			return ok == 1;
+		}
+		else if (stl::holds_alternative<NumericIdentifierValue>(value))
+		{
+			out = stl::get<NumericIdentifierValue>(value);
+			return true;
+		}
+
+		return false;
+	}
+
+	template<class StrType>
+	static bool AsString(const ValueType& value, StrType& out)
+	{
+		if (stl::holds_alternative<StringIdentifierValue>(value))
+		{
+			out = stl::get<StringIdentifierValue>(value).c_str();
+			return true;
+		}
+		else if (stl::holds_alternative<NumericIdentifierValue>(value))
+		{
+			out.Format("%" PRIu64, stl::get<NumericIdentifierValue>(value));
+			return true;
+		}
+		return false;
+	}
+
+	static void Serialize(ValueType& value, Serialization::IArchive& ar)
+	{
+		constexpr size_t strIdx = cry_variant::get_index<StringIdentifierValue, ValueType>::value;
+		constexpr size_t numIdx = cry_variant::get_index<NumericIdentifierValue, ValueType>::value;
+
+		if (ar.isOutput())
+		{
+			const size_t idx = value.index();
+			switch (idx)
+			{
+			case strIdx:
+				ar(idx, "type");
+				ar(stl::get<StringIdentifierValue>(value), "value");
+				break;
+			case numIdx:
+				ar(idx, "type");
+				ar(stl::get<NumericIdentifierValue>(value), "value");
+				break;
+			default:
+				ar(stl::variant_npos, "type");
+			}
+
+			return;
+		}
+
+		if (ar.isInput())
+		{
+			ValueType tmpVal;
+
+			size_t idx = stl::variant_npos;
+			ar(idx, "type");
+
+			switch (idx)
+			{
+			case strIdx:
+			{
+				StringIdentifierValue str;
+				ar(str, "value");
+				tmpVal = str;
+			}
+			break;
+			case numIdx:
+			{
+				NumericIdentifierValue num;
+				ar(num, "value");
+				tmpVal = num;
+			}
+			break;
+			}
+
+			if (tmpVal.index() != idx)
+			{
+				CRY_ASSERT(tmpVal.index() == idx, "Variant deserialization failed!");
+				return;
+			}
+
+			value.swap(tmpVal);
+		}
+	}
+};
+
+struct SAccountTraits : public STraitsBase
+{
+	static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+	{
+		return STraitsBase::ToDebugString(svcId, "Account", value);
+	}
+};
+
+struct SLobbyTraits : public STraitsBase
+{
+	static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+	{
+		return STraitsBase::ToDebugString(svcId, "Lobby", value);
+	}
+};
+
+struct SApplicationTraits : public STraitsBase
+{
+	static const char* ToDebugString(const ServiceIdentifier& svcId, const ValueType& value)
+	{
+		return STraitsBase::ToDebugString(svcId, "Application", value);
+	}
+};
+
 //! Identifies a game platform user on a specific service.
 using AccountIdentifier = Identifier<SAccountTraits>;
 
@@ -120,8 +355,6 @@ struct IServer
 	virtual void SendUserDisconnect(const AccountIdentifier& userId) = 0;
 };
 
-
-
 using ServiceIdentifier = CryGUID;
 
 constexpr ServiceIdentifier NullServiceID = CryGUID::Null();
@@ -142,8 +375,7 @@ inline const char* GetServiceDebugName(const ServiceIdentifier& svcId)
 }
 
 
-class CSteamServer
-	: public IServer
+class CSteamServer : public IServer
 {
 public:
 	void CloseP2PSession(CSteamID steamIDRemote);
@@ -170,7 +402,7 @@ public:
 			CSteamID steamUserId;
 			if (pGameServer->SendUserConnectAndAuthenticate(clientIP, authData, authDataLength, &steamUserId))
 			{
-				userId = Detail::CreateAccountIdentifier(steamUserId);
+				userId = CreateAccountIdentifier(steamUserId);
 				return true;
 			}
 			else

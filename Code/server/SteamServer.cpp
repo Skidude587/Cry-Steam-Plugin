@@ -13,7 +13,6 @@
 #include <steam_gameserver.h>
 #include <steamclientpublic.h>
 
-
 // Wrapper function to check if theres a packet ready to be read.
 bool CSteamServer::IsP2PPacketAvailable(uint32* pMsgSize)
 {
@@ -121,12 +120,6 @@ inline void CSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 		pGameServer->SendUserDisconnect(userId);
 	}
 }
-
-//P2P Connection Request Callback
-CSteamServer::STEAM_CALLBACK(cSteamServer, OnP2PSessionRequest, P2PSessionRequest_t)
-{
-}
-
 
 IServer::Identifier CSteamServer::GetIdentifier() const
 {
