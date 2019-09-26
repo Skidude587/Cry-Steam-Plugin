@@ -117,7 +117,7 @@ inline void CSteamServer::SendUserDisconnect(const AccountIdentifier & userId)
 {
 	if (ISteamGameServer* pGameServer = SteamGameServer())
 	{
-		pGameServer->SendUserDisconnect(userId);
+		pGameServer->SendUserDisconnect(userId.GetAsUint64);
 	}
 }
 

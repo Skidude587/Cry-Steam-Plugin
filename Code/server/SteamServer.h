@@ -332,6 +332,16 @@ using LobbyIdentifier = Identifier<SLobbyTraits>;
 //! Identifies a game or DLC.
 using ApplicationIdentifier = Identifier<SApplicationTraits>;
 
+using NumericIdentifierValue = uint64;
+
+using AccountIdentifierValue = NumericIdentifierValue;
+using LobbyIdentifierValue = NumericIdentifierValue;
+using ApplicationIdentifierValue = NumericIdentifierValue;
+
+inline AccountIdentifier     CreateAccountIdentifier(AccountIdentifierValue rawRailId) { return AccountIdentifier(RailServiceID, rawRailId); }
+inline LobbyIdentifier       CreateLobbyIdentifier(LobbyIdentifierValue rawRailId) { return LobbyIdentifier(RailServiceID, rawRailId); }
+inline ApplicationIdentifier CreateApplicationIdentifier(ApplicationIdentifierValue rawRailId) { return ApplicationIdentifier(RailServiceID, rawRailId); }
+
 //! Identifies a game platform user on a specific service.
 struct IServer
 {
@@ -402,7 +412,7 @@ public:
 			CSteamID steamUserId;
 			if (pGameServer->SendUserConnectAndAuthenticate(clientIP, authData, authDataLength, &steamUserId))
 			{
-				userId = CreateAccountIdentifier(steamUserId);
+				userId = CreateAccountIdentifier(steamUserId.ConvertToUint64);
 				return true;
 			}
 			else
@@ -415,9 +425,7 @@ public:
 	}
 	virtual void SendUserDisconnect(const AccountIdentifier& userId) /*override*/;
 public:
-
 	STEAM_CALLBACK(CSteamServer, OnP2PSessionRequest, P2PSessionRequest_t);
-
 	STEAM_CALLBACK(CSteamServer, OnP2PSessionConnectFail, P2PSessionConnectFail_t);
 
 protected:
