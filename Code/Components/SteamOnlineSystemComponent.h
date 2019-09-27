@@ -81,7 +81,10 @@ public:
 	/* Get SteamID */
 	const char* GetSteamAppID() const { return m_Steam_appId.c_str(); }
 
-
+	/* Default Component   */
+	bool UseSteam = false;
+	bool SteamFriends = false;
+	bool SteamServer = false;
 
 protected:
 	Schematyc::CSharedString m_Steam_appId;
@@ -94,13 +97,6 @@ protected:
 	int32 serverIP = 0;
 
 	/* More custom opitions - needs a return = operator too tired to do...  */
-	
-	
-
-	/* Default Component   */
-	bool UseSteam = false;
-	bool SteamFriends = false;
-	bool SteamServer = false;
  
 };
 
