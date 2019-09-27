@@ -1,33 +1,13 @@
-//
-// -------------------------------------------------------------------------
-//  File name:   Plugin.cpp
-//  Created:     23/09/2019 by Jonathan Green, Von Bismarck
-//  Description: Main File for the Plugin
-// -------------------------------------------------------------------------
-//
-////////////////////////////////////////////////////////////////////////////
-
 #include "StdAfx.h"
-
 #include "Plugin.h"
-
 #include <steam_api.h>
-
-#include "lobby/SteamLobby.h"
-#include "Components/SteamOnlineSystemComponent.h"
-
-#include <PlatformTypes.h>
-#include <PlatformIdentifier.h>
-#include <IPlatformService.h>
 
 #include <CrySchematyc/Env/IEnvRegistry.h>
 #include <CrySchematyc/Env/EnvPackage.h>
 #include <CrySchematyc/Utils/SharedString.h>
+
 // Included only once per DLL module.
 #include <CryCore/Platform/platform_impl.inl>
-#include <CryAction.h>
-#include <CryAction/InterpolationHelpers.h>
-
 
 CPlugin::~CPlugin()
 {
@@ -38,7 +18,6 @@ CPlugin::~CPlugin()
 		gEnv->pSchematyc->GetEnvRegistry().DeregisterPackage(CPlugin::GetCID());
 	}
 }
-
 
 bool CPlugin::Initialize(SSystemGlobalEnvironment& env, const SSystemInitParams& initParams)
 {
@@ -73,102 +52,53 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 			);
 		}
 	}
-	break;
-
 	case ESYSTEM_EVENT_GAME_POST_INIT:
 	{
-		/* Lets grab the SteamID */
-		CRY_ASSERT("Should be called before game has finished loading ============== check out put to confirm ========== ");
-		CSteamLobbySystemComponent *m_pSteamLobbySystem;
 
-		// Listen for client connection events, in order to create the local player
-		gEnv->pGameFramework->AddNetworkedClientListener(*this);
+		//ICVar* value = gEnv->pConsole->GetCVar("sys_steamAppId");
+		//value->GetIVal();
 
-		if (gEnv->IsEditor())
+		//CryLog("Youre steam_appid %d", value);
+		/* Using this process allows Steam to start as needed. All successful :D - Von */
+		if (!SteamAPI_RestartAppIfNecessary(1160200))
 		{
-			// If editor return out and don't load
+			// if Steam is not running or the game wasn't started through Steam, SteamAPI_RestartAppIfNecessary starts the 
+			// local Steam client and also launches this game again.
+
+			// Once you get a public Steam AppID assigned for this game, you need to replace k_uAppIdInvalid with it and
+			// removed steam_appid.txt from the game depot.
+			CRY_ASSERT("STEAM NEEDS TO BE RUNNING! ");
 			return;
-
-			char buff[MAX_PATH];
-			CryGetExecutableFolder(CRY_ARRAY_COUNT(buff), buff);
-
-
-			const string appIdPath = PathUtil::Make(buff, "steam_appid", "txt");
-
-			FILE* const pSteamAppID = fopen(appIdPath.c_str(), "wt");
-			fprintf(pSteamAppID, "%d", steam_appId);
-			fclose(pSteamAppID);
-
-			CryLogAlways("---------------------------- Showing steam_appid below ------------------------------");
-			CRY_ASSERT(pSteamAppID, "%d", steam_appId);
-#if USING_STEAM
-			uint32 num;
-			memcpy(&num, m_pSteamLobbySystem->GetSteamAppID(), 8);
-			CryLog("============= steam_appId from Component : %d", num);
-
-		
-			/* Using this process allows Steam to start as needed. All successful :D - Von */
-			if (!SteamAPI_RestartAppIfNecessary(480))
-			{
-				// if Steam is not running or the game wasn't started through Steam, SteamAPI_RestartAppIfNecessary starts the 
-				// local Steam client and also launches this game again.
-
-				// Once you get a public Steam AppID assigned for this game, you need to replace k_uAppIdInvalid with it and
-				// removed steam_appid.txt from the game depot.
-				CRY_ASSERT("STEAM NEEDS TO BE RUNNING! ");
-				return;
-			}
-
-			if (!SteamAPI_Init())
-			{
-				CRY_ASSERT("SteamAPI_Init() failed\n");
-				CRY_ASSERT("Fatal Error", "Steam must be running to play this game (SteamAPI_Init() failed).\n");
-				return;
-			}
-
-			// Ensure that the user has logged into Steam. This will always return true if the game is launched
-			// from Steam, but if Steam is at the login prompt when you run your game from the debugger, it
-			// will return false.
-			if (!SteamUser()->BLoggedOn())
-			{
-				CRY_ASSERT("Steam user is not logged in\n");
-				CRY_ASSERT("Fatal Error", "Steam user must be logged in to play this game (SteamUser()->BLoggedOn() returned false).\n");
-				return;
-			}
-
-			if (!SteamInput()->Init())
-			{
-				CRY_ASSERT("SteamInput()->Init failed.\n");
-				CRY_ASSERT("Fatal Error", "SteamInput()->Init failed.\n");
-				return;
-			}
-
-#pragma comment(lib, "steam_api64.lib")
-
-#endif
 		}
 
+		if (!SteamAPI_Init())
+		{
+			CRY_ASSERT("SteamAPI_Init() failed\n");
+			CRY_ASSERT("Fatal Error", "Steam must be running to play this game (SteamAPI_Init() failed).\n");
+			return;
+		}
+
+		// Ensure that the user has logged into Steam. This will always return true if the game is launched
+		// from Steam, but if Steam is at the login prompt when you run your game from the debugger, it
+		// will return false.
+		if (!SteamUser()->BLoggedOn())
+		{
+			CRY_ASSERT("Steam user is not logged in\n");
+			CRY_ASSERT("Fatal Error", "Steam user must be logged in to play this game (SteamUser()->BLoggedOn() returned false).\n");
+			return;
+		}
+
+		if (!SteamInput()->Init())
+		{
+			CRY_ASSERT("SteamInput()->Init failed.\n");
+			CRY_ASSERT("Fatal Error", "SteamInput()->Init failed.\n");
+			return;
+		}
+
+#pragma comment(lib, "steam_api64.lib")
 	}
 	break;
-
-	case ESYSTEM_EVENT_LEVEL_LOAD_END:
-		// Clear the players from net, if didn't already. might need to remove this during testing... 
-		m_players.clear();
 	}
-}
-
-bool CPlugin::OnClientConnectionReceived(int channelId, bool bIsReset)
-{
-	return true;
-}
-
-bool CPlugin::OnClientReadyForGameplay(int channelId, bool bIsReset)
-{
-	return true;
-}
-
-void CPlugin::OnClientDisconnected(int channelId, EDisconnectionCause cause, const char * description, bool bKeepClient)
-{
 }
 
 CRYREGISTER_SINGLETON_CLASS(CPlugin)

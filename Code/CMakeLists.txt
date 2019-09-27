@@ -254,5 +254,4 @@ PRIVATE
     "${CRYENGINE_DIR}/Code/CryPlugins/CryGamePlatform/Module"
     "${CRYENGINE_DIR}/Code/CryPlugins/CryGamePlatform/Interface"
 )
-
 #END-CUSTOM

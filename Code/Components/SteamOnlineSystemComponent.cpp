@@ -14,12 +14,8 @@
 #include <CrySchematyc/Utils/EnumFlags.h>
 #include <CrySchematyc/Env/IEnvRegistry.h>
 #include <CrySchematyc/Env/IEnvRegistrar.h>
-#include <CrySchematyc/Env/Elements/EnvComponent.h>
-#include <CrySchematyc/Env/Elements/EnvFunction.h>
-#include <CrySchematyc/Env/Elements/EnvSignal.h>
-#include <CrySchematyc/ResourceTypes.h>
-#include <CrySchematyc/MathTypes.h>
-#include <CrySchematyc/Utils/SharedString.h>
+
+
 #include <CryCore/StaticInstanceList.h>
 
 namespace
@@ -49,6 +45,14 @@ Cry::Entity::EventFlags CSteamLobbySystemComponent::GetEventMask() const
 
 void CSteamLobbySystemComponent::ProcessEvent(const SEntityEvent & event)
 {
+	switch (event.event)
+	{
+	case Cry::Entity::EEvent::Update:
+	{
+		//CryLog("Update from CSteamSystem Component");
+	}
+		break;
+	}
 }
 
 
