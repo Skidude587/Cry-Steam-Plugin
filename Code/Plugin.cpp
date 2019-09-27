@@ -99,6 +99,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 			fprintf(pSteamAppID, "%d", steam_appId);
 			fclose(pSteamAppID);
 
+			CryLogAlways("---------------------------- Showing steam_appid below ------------------------------");
 			CRY_ASSERT(pSteamAppID, "%d", steam_appId);
 #if USING_STEAM == 1
 
