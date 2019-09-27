@@ -46,3 +46,7 @@ Cry::Entity::EventFlags CSteamLobbySystemComponent::GetEventMask() const
 		Cry::Entity::EEvent::Update |
 		Cry::Entity::EEvent::Reset;
 }
+
+void CSteamLobbySystemComponent::ProcessEvent(const SEntityEvent & event)
+{
+}
