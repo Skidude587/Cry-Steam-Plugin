@@ -105,4 +105,6 @@ protected:
 	// Map containing player components, key is the channel id received in OnClientConnectionReceived
 	std::unordered_map<int, EntityId> m_players;
 
+	uint32 steam_appId;
+
 };
