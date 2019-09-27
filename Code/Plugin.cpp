@@ -101,13 +101,14 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 
 			CryLogAlways("---------------------------- Showing steam_appid below ------------------------------");
 			CRY_ASSERT(pSteamAppID, "%d", steam_appId);
-#if USING_STEAM == 1
-
+#if USING_STEAM
 			uint32 num;
 			memcpy(&num, m_pSteamLobbySystem->GetSteamAppID(), 8);
 			CryLog("============= steam_appId from Component : %d", num);
+
+		
 			/* Using this process allows Steam to start as needed. All successful :D - Von */
-			if (!SteamAPI_RestartAppIfNecessary(steam_appId))
+			if (!SteamAPI_RestartAppIfNecessary(480))
 			{
 				// if Steam is not running or the game wasn't started through Steam, SteamAPI_RestartAppIfNecessary starts the 
 				// local Steam client and also launches this game again.

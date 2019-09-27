@@ -1,0 +1,9 @@
+<AssetMetadata version="0" type="Character" guid="1a34b249-c16c-8597-61b4-44a2ce1f7482">
+ <Files>
+  <File path="spaceman.cdf"/>
+ </Files>
+ <Details />
+ <Dependencies>
+  <Path>Objects/Spaceman/spaceman_skeleton.chr</Path>
+ </Dependencies>
+</AssetMetadata>
