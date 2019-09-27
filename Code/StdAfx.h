@@ -7,9 +7,9 @@
 #define GAME_API   DLL_EXPORT
 
 /* These values will change depending on user settings from editor by default it's off */
-#define USING_STEAM 0
-#define USING_STEAM_FRIENDS 0
-#define USING_STEAM_SERVER 0
+#define USING_STEAM 1
+#define USING_STEAM_FRIENDS 1
+#define USING_STEAM_SERVER 1
 
 #include <CryCore/Platform/platform.h>
 #include <CrySystem/ISystem.h>

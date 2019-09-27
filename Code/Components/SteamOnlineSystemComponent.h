@@ -44,18 +44,16 @@ public:
 		desc.SetLabel("Steam");
 		desc.SetDescription("This component allows you to add Steam and configure it");
 		desc.SetIcon("icons:ObjectTypes/light.ico");
-		desc.SetComponentFlags({ IEntityComponent::EFlags::Transform, IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach });
+		desc.SetComponentFlags({ IEntityComponent::EFlags::Socket, IEntityComponent::EFlags::Attach });
 
 		desc.AddMember(&CSteamLobbySystemComponent::UseSteam, 'ustm', "UseSteam", "Use Steam", "Use Steam", false);
 		desc.AddMember(&CSteamLobbySystemComponent::m_Steam_appId, 'text', "SteamID", "Steam ID", "Your App ID from Steam", "");
-
-		desc.AddMember(&CSteamLobbySystemComponent::m_LobbyName, 'dfln', "DefaultLobbyName", "Default Lobby Name", "Default Lobby Name", "");
+		desc.AddMember(&CSteamLobbySystemComponent::SteamFriends, 'ustf', "SteamFriends", "Use Friends", "Use Friends", false);
 		desc.AddMember(&CSteamLobbySystemComponent::SteamServer, 'usts', "SteamServer", "Use Steam Server", "Use Steam Server", false);
+		desc.AddMember(&CSteamLobbySystemComponent::m_LobbyName, 'dfln', "DefaultLobbyName", "Default Lobby Name", "Default Lobby Name", "");
 		desc.AddMember(&CSteamLobbySystemComponent::serverport, 'svrp', "ServerPort", "Server Port", "Server Port", 0);
 		desc.AddMember(&CSteamLobbySystemComponent::serverIP, 'svri', "ServerIP", "Server IP Address", "Server IP Address", 0);
 		desc.AddMember(&CSteamLobbySystemComponent::lobbySize, 'lbbz', "LobbySize", "Lobby Size", "Lobby Size", 0);
-
-		desc.AddMember(&CSteamLobbySystemComponent::SteamFriends, 'ustf', "SteamFriends", "Use Friends", "Use Friends", false);
 
 	}
 
@@ -66,13 +64,13 @@ public:
 	}
 
 	/* Using Steam or Not */
-	bool UsingSteam() { return UseSteam = USING_STEAM; }
+	bool UsingSteam() { return UseSteam; }
 
 	/* Using Steam Friends or not */
-	bool UseSteamFriends() { return SteamFriends = USING_STEAM_FRIENDS; }
+	bool UseSteamFriends() { return SteamFriends; }
 
 	/* Using Steam Server allow to use steam server instead of Cryengine server */
-	bool UseSteamServer() { return SteamServer = USING_STEAM_SERVER; }
+	bool UseSteamServer() { return SteamServer; }
 
 	/* Get lobby Name from User input */
 	const char* GetLobbyName() { return m_LobbyName.c_str(); }
