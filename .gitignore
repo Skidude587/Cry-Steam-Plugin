@@ -9,7 +9,7 @@ log.*
 *.csproj
 *.log
 *.sln
-
+*.txt
 
 .git/*
 .vs/*
