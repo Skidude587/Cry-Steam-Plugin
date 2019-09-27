@@ -99,6 +99,7 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 			fprintf(pSteamAppID, "%d", steam_appId);
 			fclose(pSteamAppID);
 
+			CRY_ASSERT(pSteamAppID, "%d", steam_appId);
 #if USING_STEAM == 1
 
 			uint32 num;
