@@ -58,6 +58,8 @@ void CPlugin::OnSystemEvent(ESystemEvent event, UINT_PTR wparam, UINT_PTR lparam
 		//ICVar* value = gEnv->pConsole->GetCVar("sys_steamAppId");
 		//value->GetIVal();
 
+		if (gEnv->IsEditor())
+			return;
 		//CryLog("Youre steam_appid %d", value);
 		/* Using this process allows Steam to start as needed. All successful :D - Von */
 		if (!SteamAPI_RestartAppIfNecessary(1160200))
