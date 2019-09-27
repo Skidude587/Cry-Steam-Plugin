@@ -20,6 +20,47 @@
 
 class CSteamLobbySystemComponent : public IEntityComponent
 {
+
+
+	struct SSteam_appID
+	{
+		inline bool operator==(const SSteam_appID& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+		inline bool operator!=(const SSteam_appID& rhs) const { return 0 != memcmp(this, &rhs, sizeof(rhs)); }
+
+		/* TODO Finish tomorrow mornging */
+		int SteamID;
+		Schematyc::CAnyValuePtr steam_appID;
+		
+	};
+
+	static void ReflectType(Schematyc::CTypeDesc<SSteam_appID>& desc)
+	{
+		desc.SetGUID("{FE63E77F-C8FA-45D4-B799-95C95F1EA6E3}"_cry_guid);
+		desc.SetLabel("Steam App ID");
+		desc.SetDescription("Steam App ID");
+		//desc.AddMember(&SSteam_appID::SteamID, 'stmd', "SteamAppID", "Steam App ID", "Your App ID from Steam", 0);
+	}
+
+
+	struct SSteamProperties
+	{
+		inline bool operator==(const SSteamProperties& rhs) const { return 0 == memcmp(this, &rhs, sizeof(rhs)); }
+		inline bool operator!=(const SSteamProperties& rhs) const { return 0 != memcmp(this, &rhs, sizeof(rhs)); }
+
+		SSteam_appID sSteam_appID;
+	};
+
+
+	static void ReflectType(Schematyc::CTypeDesc<SSteamProperties>& desc)
+	{
+		desc.SetGUID("{5030601C-A768-497D-BCC7-9676284CCEC9}"_cry_guid);
+		desc.SetLabel("Item properties");
+		desc.SetDescription("Item properties");
+		//desc.AddMember(&SSteamProperties::sSteam_appID, 'stmd', "SteamID", "Steam ID", "Steam ID", SSteam_appID());
+	}
+
+
+
 public:
 	CSteamLobbySystemComponent() = default;
 	virtual ~CSteamLobbySystemComponent() {}
@@ -41,7 +82,7 @@ public:
 		desc.SetComponentFlags({ IEntityComponent::EFlags::Singleton });
 
 		desc.AddMember(&CSteamLobbySystemComponent::UseSteam, 'ustm', "UseSteam", "Use Steam", "Use Steam", false);
-		desc.AddMember(&CSteamLobbySystemComponent::SteamID, 'stmd', "SteamID", "Steam ID", "Steam ID", 0);
+		//desc.AddMember(&SSteamProperties::sSteam_appID, 'stmd', "SteamID", "Steam ID", "Steam ID", SSteam_appID());
 
 		desc.AddMember(&CSteamLobbySystemComponent::SteamServer, 'usts', "SteamServer", "Use Steam Server", "Use Steam Server", false);
 		desc.AddMember(&CSteamLobbySystemComponent::serverport, 'svrp', "ServerPort", "Server Port", "Server Port", 0);
@@ -75,14 +116,16 @@ public:
 	int32 lobbySizeMax() { return lobbyDefaultSize = lobbySize; }
 
 	/* Get SteamID */
-	int32 GetSteamGameID() { return GameID = SteamID; }
+	int GetSteamGameID() { return GameID = m_sSteamID->SteamID; }
 
 
 
 protected:
+	SSteam_appID* m_sSteamID;
 
-	int32 SteamID = 0;
-	int32 GameID = 0;
+	int GameID = 0;
+
+
 
 	int32 lobbyDefaultSize = 0;
 	int32 lobbySize = 0;
@@ -98,5 +141,6 @@ protected:
 	bool UseSteam = false;
 	bool SteamFriends = false;
 	bool SteamServer = false;
+ 
 };
 

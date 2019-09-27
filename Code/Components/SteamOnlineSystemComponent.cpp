@@ -50,3 +50,6 @@ Cry::Entity::EventFlags CSteamLobbySystemComponent::GetEventMask() const
 void CSteamLobbySystemComponent::ProcessEvent(const SEntityEvent & event)
 {
 }
+
+
+
