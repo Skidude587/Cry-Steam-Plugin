@@ -1,27 +1,27 @@
 # CrySteamPlugin
 A plugin to replace CryGamePlatformSteam.
-Join our Discord Server: &nbsp; <a style="padding-top: 10px" href="https://discord.gg/UkRU4vG"><img src="https://discordapp.com/api/guilds/577993482761928734/widget.png?style=shield"></img></a>
 ## What it does
 This plugin is a replacement for the currently broken CryGamePlatformSteam. It calls up the Steam API and initiates it.
 
 It also sets up online lobbies hosted via your Steam AppId.
+
+WARNING: This plugin does not work with GameSDK.
 ## How To
+If you aren't building it yourself you can copy the "Plugin.dll" to the bin folder of your project. And adjust your .cryproject as seen below.
+
 Copy code to the proper folders.
 
-Add CrySteamPlugin in your required plugins section in your .cryproject file.
+Add "Plugin.dll" in your required plugins section in your .cryproject file.
 Eg:```"plugins": [
                { 
                 "type": "EPluginType::Native",
-                "path": "CrySteamPlugin"
+                "path": "bin\win_x64\Plugin.dll"
                 }
             ]```
 
 Add in your Steam AppId to ```"sys_steamAppId"``` in your .cryproject file.
 
 In *LobbyCVars.cpp* change ```"net_useSteamAsOnlineLobby"``` to 1.
-
-*(IF USING GAME SDK)*
-Change the AppId in *GameBrowser.cpp* to your Steam AppId.
 
 *(IF IN RELEASE NOT LAUCNING VIA STEAM)*
 Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin folder.
@@ -35,21 +35,21 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
     "version": 4,
     "type": "CRYENGINE Project",
     "info": {
-        "name": "GameSDK",
+        "name": "Game",
         "guid": "981c2e0b-5ce6-ce71-f0be-eab93bbd43f6"
     },
     "content": {
         "assets": [
-            "GameSDK"
+            "Game"
         ],
         "code": [
             ""
         ],
         "libs": [
             {
-                "name": "GameSDK",
+                "name": "Game",
                 "shared": {
-                    "any": "CryGameSDK",
+                    "any": "Game",
                     "win_x64": "",
                     "win_x86": ""
                 }
@@ -86,7 +86,7 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
             },
             {
                 "type": "EPluginType::Native",
-                "path": "CrySteamPlugin"
+                "path": "bin\win_x64\Plugin.dll"
             }
         ]
     },
@@ -109,9 +109,3 @@ Make sure you have a *steam_appid.txt* containing ONLY your appid in your bin fo
 #endif 
 ```
 
-## GameBrowser.cpp Example
-```
-#if USE_STEAM
-#define STEAM_APPID (480)
-#endif
-```
